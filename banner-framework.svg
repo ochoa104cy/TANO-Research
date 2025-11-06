@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="360" viewBox="0 0 1600 360">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="400" viewBox="0 0 1600 400">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#0b1220"/>
@@ -14,19 +14,19 @@
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
-  <rect width="1600" height="360" fill="url(#g)"/>
-  <path d="M0,300 C300,260 400,320 700,280 C1000,240 1100,320 1600,260 L1600,360 L0,360 Z" fill="url(#a)"/>
-  <path d="M0,330 C300,290 400,350 700,310 C1000,270 1100,350 1600,290 L1600,360 L0,360 Z" fill="#7aa2ff" opacity="0.08"/>
+  <rect width="1600" height="400" fill="url(#g)"/>
+  <path d="M0,320 C300,280 400,340 700,300 C1000,260 1100,340 1600,280 L1600,400 L0,400 Z" fill="url(#a)"/>
+  <path d="M0,350 C300,310 400,370 700,330 C1000,290 1100,370 1600,310 L1600,400 L0,400 Z" fill="#7aa2ff" opacity="0.08"/>
   <!-- Title -->
   <g filter="url(#glow)">
-    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+    <text x="50%" y="48%" dominant-baseline="middle" text-anchor="middle"
           font-family="Segoe UI, Roboto, system-ui, -apple-system, Arial, sans-serif"
-          font-size="52" font-weight="700" fill="#dfe6ff" letter-spacing="1.2">
+          font-size="56" font-weight="700" fill="#c6d3ff" letter-spacing="1.2">
       TANO Framework
     </text>
     <text x="50%" y="62%" dominant-baseline="middle" text-anchor="middle"
           font-family="Segoe UI, Roboto, system-ui, -apple-system, Arial, sans-serif"
-          font-size="18" font-weight="600" fill="#9fb4ff" opacity="0.9">
+          font-size="18" font-weight="600" fill="#b7c6ff" opacity="0.92">
       Trust • Accuracy • Neutrality • Organization • Transparency
     </text>
   </g>
