@@ -7,27 +7,47 @@
   <link rel="stylesheet" href="../../styles.css" />
 
   <style>
+    /* Scrollable table container */
+    .table-wrapper {
+      max-height: 600px;       /* Adjust table height */
+      overflow-y: auto;        /* Vertical scrollbar */
+      overflow-x: auto;        /* Horizontal scrollbar */
+      border: 1px solid #333;
+      background: #111;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+
+    /* Table styling */
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
       background: #1e1e1e;
       color: #fff;
       font-size: 14px;
     }
+
     th, td {
       padding: 10px;
       border: 1px solid #333;
       vertical-align: top;
     }
+
+    /* Sticky header */
     th {
       background: #333;
       font-weight: bold;
       text-align: left;
+      position: sticky;
+      top: 0;
+      z-index: 5;
     }
+
     tr:nth-child(even) {
       background: #252525;
     }
+
+    /* Search bar styling */
     .search-box {
       width: 100%;
       padding: 10px;
@@ -38,20 +58,12 @@
       background: #111;
       color: #fff;
     }
+
     .loading {
       margin-top: 15px;
       font-style: italic;
       color: #aaa;
     }
-    .table-wrapper {
-  max-height: 600px;   /* adjust height as needed */
-  overflow-y: auto;    /* enables vertical scrollbar */
-  overflow-x: auto;    /* enables horizontal scrollbar */
-  border: 1px solid #333;
-  margin-top: 20px;
-  background: #111;
-  border-radius: 6px;
-}
   </style>
 </head>
 
@@ -69,26 +81,28 @@
       id="searchInput"
       class="search-box"
       onkeyup="filterTable()"
-      placeholder="Search practices… (e.g., AC.L2, 3.1.1, multi-factor, logging)"
+      placeholder="Search practices… (e.g., AC.L2, 3.1.1, encryption, MFA, logging)"
     />
 
     <div id="status" class="loading">Loading Level 2 practices…</div>
-  <div class=""table-wrapper">
-    <table id="l2Table" style="display:none;">
-      <thead>
-        <tr>
-          <th>Practice ID</th>
-          <th>Domain</th>
-          <th>NIST Ref</th>
-          <th>Practice Name</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody id="l2Body">
-        <!-- Rows will be injected here from L2_Practices.csv -->
-      </tbody>
-    </table>
-  </div>
+
+    <!-- ⭐ Scrollable table container -->
+    <div class="table-wrapper">
+      <table id="l2Table" style="display:none;">
+        <thead>
+          <tr>
+            <th>Practice ID</th>
+            <th>Domain</th>
+            <th>NIST Ref</th>
+            <th>Practice Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody id="l2Body">
+          <!-- Rows inserted dynamically -->
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <div class="card">
@@ -98,7 +112,7 @@
   <footer>© TANO Research — Exploring Possibilities Everywhere</footer>
 
   <script>
-    // Simple CSV parser that supports quoted fields and commas inside quotes
+    /* CSV parser that supports quotes and commas */
     function parseCSV(text) {
       const rows = [];
       const lines = text.split(/\r?\n/).filter(line => line.trim() !== "");
@@ -111,7 +125,6 @@
           const char = line[i];
           if (char === '"' ) {
             if (inQuotes && line[i + 1] === '"') {
-              // Escaped quote
               current += '"';
               i++;
             } else {
@@ -140,16 +153,16 @@
         return;
       }
 
-      const header = rows[0]; // we won't use header directly, but we keep the mapping
-      const idxPracticeId   = header.indexOf("Practice_ID");
-      const idxDomain       = header.indexOf("Domain");
-      const idxNistRef      = header.indexOf("NIST_Ref");
-      const idxName         = header.indexOf("Practice_Name");
-      const idxDescription  = header.indexOf("Practice_Description");
+      const header = rows[0];
+      const idxPracticeId  = header.indexOf("Practice_ID");
+      const idxDomain      = header.indexOf("Domain");
+      const idxNistRef     = header.indexOf("NIST_Ref");
+      const idxName        = header.indexOf("Practice_Name");
+      const idxDescription = header.indexOf("Practice_Description");
 
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i];
-        if (!r[idxPracticeId]) continue; // skip empty lines
+        if (!r[idxPracticeId]) continue;
 
         const tr = document.createElement("tr");
 
@@ -179,22 +192,18 @@
     }
 
     function filterTable() {
-      const input = document.getElementById("searchInput");
-      const filter = input.value.toLowerCase();
+      const filter = document.getElementById("searchInput").value.toLowerCase();
       const rows = document.querySelectorAll("#l2Body tr");
-
       rows.forEach(row => {
         const text = row.textContent.toLowerCase();
         row.style.display = text.includes(filter) ? "" : "none";
       });
     }
 
-    // Fetch and render the CSV from the same folder
+    /* Load CSV */
     fetch("L2_Practices.csv")
       .then(resp => {
-        if (!resp.ok) {
-          throw new Error("Unable to load L2_Practices.csv");
-        }
+        if (!resp.ok) throw new Error("Unable to load L2_Practices.csv");
         return resp.text();
       })
       .then(text => {
@@ -202,8 +211,8 @@
         buildTable(rows);
       })
       .catch(err => {
-        const status = document.getElementById("status");
-        status.textContent = "Error loading Level 2 practices: " + err.message;
+        document.getElementById("status").textContent =
+          "Error loading Level 2 practices: " + err.message;
       });
   </script>
 </body>
