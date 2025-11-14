@@ -43,6 +43,15 @@
       font-style: italic;
       color: #aaa;
     }
+    .table-wrapper {
+  max-height: 600px;   /* adjust height as needed */
+  overflow-y: auto;    /* enables vertical scrollbar */
+  overflow-x: auto;    /* enables horizontal scrollbar */
+  border: 1px solid #333;
+  margin-top: 20px;
+  background: #111;
+  border-radius: 6px;
+}
   </style>
 </head>
 
@@ -64,7 +73,7 @@
     />
 
     <div id="status" class="loading">Loading Level 2 practices…</div>
-
+  <div class=""table-wrapper">
     <table id="l2Table" style="display:none;">
       <thead>
         <tr>
@@ -79,6 +88,7 @@
         <!-- Rows will be injected here from L2_Practices.csv -->
       </tbody>
     </table>
+  </div>
   </div>
 
   <div class="card">
