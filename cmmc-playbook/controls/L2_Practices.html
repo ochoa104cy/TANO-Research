@@ -7,24 +7,31 @@
   <link rel="stylesheet" href="../../styles.css" />
 
   <style>
-    /* Scrollable table container */
+    /* Force card to allow inner scroll */
+    .card {
+      overflow: visible !important;
+    }
+
+    /* Scrollable table container — main fix */
     .table-wrapper {
-      max-height: 600px;
-      overflow-y: auto;
-      overflow-x: auto;
+      max-height: 600px !important;
+      min-height: 300px !important;
+      overflow-y: auto !important;
+      overflow-x: auto !important;
+      display: block !important;
       border: 1px solid #333;
       background: #111;
       border-radius: 6px;
       margin-top: 20px;
     }
 
+    /* Table styling */
     table {
       width: 100%;
       border-collapse: collapse;
       background: #1e1e1e;
       color: #fff;
       font-size: 14px;
-      display: none; /* Hidden until JS loads CSV */
     }
 
     th, td {
@@ -33,9 +40,11 @@
       vertical-align: top;
     }
 
+    /* Sticky header */
     th {
       background: #333;
       font-weight: bold;
+      text-align: left;
       position: sticky;
       top: 0;
       z-index: 5;
@@ -45,6 +54,7 @@
       background: #252525;
     }
 
+    /* Search bar */
     .search-box {
       width: 100%;
       padding: 10px;
@@ -68,10 +78,9 @@
   <div class="card">
     <h1>CMMC Level 2 Practices</h1>
     <p><strong>TANO = Trust • Accuracy • Neutrality • Organization • Transparency</strong></p>
-
     <p>
-      This table is generated directly from the <code>L2_Practices.csv</code> file, which is
-      mapped from NIST SP 800-171 Rev.3 security requirements to CMMC Level 2.
+      This table is generated directly from <code>L2_Practices.csv</code>, mapped to
+      NIST SP 800-171 Rev.3 security requirements.
     </p>
 
     <input
@@ -79,12 +88,12 @@
       id="searchInput"
       class="search-box"
       onkeyup="filterTable()"
-      placeholder="Search practices… (e.g., AC.L2, 3.1.1, encryption, MFA, logging)"
+      placeholder="Search… (e.g., AC.L2, 3.1.1, MFA, encryption)"
     />
 
     <div id="status" class="loading">Loading Level 2 practices…</div>
 
-    <!-- ⭐ FIXED: Added table IDs so JS works -->
+    <!-- SCROLLABLE TABLE WRAPPER -->
     <div class="table-wrapper">
       <table id="l2Table">
         <thead>
@@ -96,21 +105,22 @@
             <th>Description</th>
           </tr>
         </thead>
-
-        <tbody id="l2Body"></tbody>
+        <tbody id="l2Body">
+          <!-- Populated by JS -->
+        </tbody>
       </table>
     </div>
+
   </div>
 
   <div class="card">
     <p><a href="../../cmmc.html">&larr; Back to TANO + CMMC Playbook</a></p>
   </div>
 
-  <footer>
-    © TANO Research — Exploring Possibilities with Integrity Everywhere
-  </footer>
+  <footer>© TANO Research — Exploring Possibilities with Integrity Everywhere</footer>
 
   <script>
+    /* CSV parser supporting quoted commas */
     function parseCSV(text) {
       const rows = [];
       const lines = text.split(/\r?\n/).filter(line => line.trim() !== "");
@@ -143,11 +153,10 @@
 
     function buildTable(rows) {
       const status = document.getElementById("status");
-      const table = document.getElementById("l2Table");
       const tbody = document.getElementById("l2Body");
 
       if (rows.length <= 1) {
-        status.textContent = "No Level 2 practices found in L2_Practices.csv.";
+        status.textContent = "No Level 2 practices found in CSV.";
         return;
       }
 
@@ -163,7 +172,6 @@
         if (!r[idxPracticeId]) continue;
 
         const tr = document.createElement("tr");
-
         tr.innerHTML = `
           <td>${r[idxPracticeId] || ""}</td>
           <td>${r[idxDomain] || ""}</td>
@@ -171,26 +179,25 @@
           <td>${r[idxName] || ""}</td>
           <td>${r[idxDescription] || ""}</td>
         `;
-
         tbody.appendChild(tr);
       }
 
       status.style.display = "none";
-      table.style.display = "table";
     }
 
     function filterTable() {
       const filter = document.getElementById("searchInput").value.toLowerCase();
       const rows = document.querySelectorAll("#l2Body tr");
-
       rows.forEach(row => {
-        row.style.display = row.textContent.toLowerCase().includes(filter) ? "" : "none";
+        const txt = row.textContent.toLowerCase();
+        row.style.display = txt.includes(filter) ? "" : "none";
       });
     }
 
+    /* Load CSV from same folder */
     fetch("L2_Practices.csv")
       .then(resp => {
-        if (!resp.ok) throw new Error("Unable to load L2_Practices.csv");
+        if (!resp.ok) throw new Error("Unable to load CSV");
         return resp.text();
       })
       .then(text => {
@@ -202,5 +209,6 @@
           "Error loading Level 2 practices: " + err.message;
       });
   </script>
+
 </body>
 </html>
