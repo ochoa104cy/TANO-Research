@@ -1,18 +1,18 @@
-Practice_ID,Domain,NIST_Ref,Practice_Name,Practice_Description,Assessment_Objectives_Summary,Type
-AC.L1-3.1.1,Access Control,3.1.1,Limit system access,"Limit system access to authorized users, processes acting for authorized users, and approved devices.",Identify authorized users/devices and enforce access limits at the system boundary and login points.,Level 1
-AC.L1-3.1.2,Access Control,3.1.2,Limit transactions and functions,"Ensure authorized users can only perform the types of transactions and functions they are permitted to execute.",Define allowed actions by role and verify permissions align with job responsibilities.,Level 1
-AC.L1-3.1.20,Access Control,3.1.20,Control external connections,"Verify, control, and limit connections to and use of external information systems (e.g., partner networks, cloud services).",Identify external systems, approve connections, and monitor/limit their use.,Level 1
-AC.L1-3.1.22,Access Control,3.1.22,Public system separation,"Control what is posted or processed on publicly accessible systems so sensitive information is not exposed.",Define rules for public content and verify that CUI/FCI is not placed on public systems.,Level 1
-IA.L1-3.5.1,Identification & Authentication,3.5.1,Identify users, processes, and devices,"Uniquely identify system users, processes acting on their behalf, and devices accessing systems.",Ensure each user/device has a unique ID and identities are known before granting access.,Level 1
-IA.L1-3.5.2,Identification & Authentication,3.5.2,Authenticate identities,"Authenticate or verify identities of users, processes, or devices as a prerequisite to system access.",Verify login credentials or multifactor tokens before authorizing access.,Level 1
-MP.L1-3.8.3,Media Protection,3.8.3,Sanitize or destroy media,"Sanitize or destroy system media containing sensitive information before disposal or reuse.",Apply wiping, degaussing, shredding or vendor tools and keep basic records of media handling.,Level 1
-PE.L1-3.10.1,Physical Protection,3.10.1,Limit physical access,"Limit physical access to systems, equipment, and operating environments to authorized individuals.",Control access to rooms/cabinets, restrict entry to sensitive areas, and verify only authorized people can enter.,Level 1
-PE.L1-3.10.3,Physical Protection,3.10.3,Escort visitors,"Escort visitors and monitor their activity in areas with system access.",Require escorts, visitor badges, and basic monitoring of visitor movement in controlled spaces.,Level 1
-PE.L1-3.10.4,Physical Protection,3.10.4,Maintain physical access logs,"Maintain audit logs of physical access to sensitive areas.",Record entries/exits (badges, sign-in sheets, logs) and retain them per policy.,Level 1
-PE.L1-3.10.5,Physical Protection,3.10.5,Manage physical access devices,"Control and manage physical access devices such as keys, badges, and tokens.",Track who holds which devices, revoke them when people leave or change roles, and review device inventory.,Level 1
-SC.L1-3.13.1,System & Communications Protection,3.13.1,Boundary protection,"Monitor, control, and protect communications at external boundaries and key internal network boundaries.",Use firewalls, routers, or gateways to filter traffic and enforce boundary rules.,Level 1
-SC.L1-3.13.5,System & Communications Protection,3.13.5,Separate public systems,"Implement subnetworks or similar mechanisms for publicly accessible systems, separated from internal networks.",Place public-facing services (web, email, portals) in a DMZ or isolated segment from internal systems.,Level 1
-SI.L1-3.14.1,System & Information Integrity,3.14.1,Identify and remediate flaws,"Identify, report, and correct system flaws in a timely manner (patching and updates).",Track vulnerabilities and apply updates/patches in line with an established schedule.,Level 1
-SI.L1-3.14.2,System & Information Integrity,3.14.2,Protect against malicious code,"Provide protection from malicious code at appropriate locations within systems.",Deploy AV/EDR on endpoints and servers and ensure it monitors relevant traffic/activities.,Level 1
-SI.L1-3.14.4,System & Information Integrity,3.14.4,Update protections,"Update malicious code protection mechanisms when new signatures or releases are available.",Configure automatic updates or perform regular manual updates of AV/EDR tools.,Level 1
-SI.L1-3.14.5,System & Information Integrity,3.14.5,Scan files and content,"Perform periodic and real-time scans of files from external sources at points of entry.",Scan downloads, email attachments, and removable media, and respond to any detections.,Level 1
+Practice_ID,Domain,NIST_Ref,Practice_Name,Practice_Description
+AC.L1-3.1.1,Access Control,3.1.1,Authorized Access,Limit information system access to authorized users and devices.
+AC.L1-3.1.2,Access Control,3.1.2,Authorized Use,Limit system access to the types of transactions and functions authorized.
+AC.L1-3.1.20,Access Control,3.1.20,External Connections,Verify and control/limit connections to external systems.
+AC.L1-3.1.22,Access Control,3.1.22,Public Information Control,Control public information posted or accessible online.
+IA.L1-3.5.1,Identification & Authentication,3.5.1,User Identification,Identify users before enabling access.
+IA.L1-3.5.2,Identification & Authentication,3.5.2,Authenticator Management,Use secure methods to authenticate users.
+MP.L1-3.8.3,Media Protection,3.8.3,Media Sanitization,Sanitize or destroy information system media before disposal/reuse.
+PE.L1-3.10.1,Physical Protection,3.10.1,Physical Access Limits,Limit physical access to systems and equipment.
+PE.L1-3.10.3,Physical Protection,3.10.3,Escort & Monitor Visitors,Escort visitors and monitor visitor activity.
+PE.L1-3.10.4,Physical Protection,3.10.4,Access Logs,Maintain audit logs of physical access.
+PE.L1-3.10.5,Physical Protection,3.10.5,Managing Physical Access Devices,Control and manage physical keys, cards, and devices.
+SC.L1-3.13.1,System & Communications Protection,3.13.1,Boundary Protection,Monitor and control communications at system boundaries.
+SC.L1-3.13.5,System & Communications Protection,3.13.5,Public System Protection,Implement protections for publicly accessible systems.
+SI.L1-3.14.1,System & Information Integrity,3.14.1,Flaw Remediation,Identify, report, and correct system flaws.
+SI.L1-3.14.2,System & Information Integrity,3.14.2,Malicious Code Protection,Protect systems from malware.
+SI.L1-3.14.4,System & Information Integrity,3.14.4,Update Malicious Code Protection,Update antivirus and malware defenses regularly.
+SI.L1-3.14.5,System & Information Integrity,3.14.5,Spam & Message Protection,Protect against spam and unauthorized messages.
