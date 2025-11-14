@@ -34,7 +34,7 @@ The platform integrates cybersecurity, compliance, and AI research into one cohe
 
 ## Features
 
-- Unified compliance dashboards (CMMC v2, NIST 800-171)  
+- Unified compliance dashboards (CMMC v3, NIST 800-171)  
 - AI-assisted risk & evidence interpretation  
 - Secure configuration and lab automation (macOS / Windows / Kali)  
 - Knowledge engine integrating documentation + datasets  
@@ -69,7 +69,7 @@ The platform integrates cybersecurity, compliance, and AI research into one cohe
 
 All repositories follow the same ethical and security standards:
 
-- Adheres to **CMMC 2.0 L2**, **NIST SP 800-171**, and **ISO 27001** control mappings.  
+- Adheres to **CMMC 3.0 L2**, **NIST SP 800-171**, and **ISO 27001** control mappings.  
 - Implements responsible disclosure per [SECURITY.md](SECURITY.md).  
 - Encourages reproducibility, attribution, and non-malicious use only.
 
