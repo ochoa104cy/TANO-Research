@@ -1,4 +1,4 @@
-![TANO - CMMC Playbook](/diagrams/banner-cmmc-playbook.png)
+![TANO - CMMC Playbook](diagrams/banner-cmmc-playbook.png)
 
 TANO - CMMC Level 1 / Level 2 Implementation Playbook
 
