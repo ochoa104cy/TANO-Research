@@ -73,7 +73,7 @@
     <p><strong>TANO = Trust • Accuracy • Neutrality • Organization • Transparency</strong></p>
     <p>
       This table is generated directly from the <code>L2_Practices.csv</code> file, which is
-      built from NIST SP 800-171 Rev.2 security requirements mapped to CMMC Level 2.
+      built from NIST SP 800-171 Rev.3 security requirements mapped to CMMC Level 2.
     </p>
 
     <input
@@ -88,28 +88,36 @@
 
     <!-- ⭐ Scrollable table container -->
     <div class="table-wrapper">
-      <table id="l2Table" style="display:none;">
-        <thead>
-          <tr>
-            <th>Practice ID</th>
-            <th>Domain</th>
-            <th>NIST Ref</th>
-            <th>Practice Name</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody id="l2Body">
-          <!-- Rows inserted dynamically -->
-        </tbody>
-      </table>
-    </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Practice ID</th>
+        <th>Domain</th>
+        <th>NIST Ref</th>
+        <th>Practice Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>AC.L2-3.1.1</td>
+        <td>Access Control</td>
+        <td>3.1.1</td>
+        <td>Authorized Access</td>
+        <td>Full NIST description here...</td>
+      </tr>
+      <!-- Add more rows -->
+    </tbody>
+  </table>
+</div>
+
   </div>
 
   <div class="card">
     <p><a href="../../cmmc.html">&larr; Back to TANO + CMMC Playbook</a></p>
   </div>
 
-  <footer>© TANO Research — Exploring Possibilities Everywhere</footer>
+  <footer>© TANO Research — Exploring Possibilities with Integrity Everywhere</footer>
 
   <script>
     /* CSV parser that supports quotes and commas */
@@ -215,6 +223,5 @@
           "Error loading Level 2 practices: " + err.message;
       });
   </script>
-  <footer>© TANO Research — Exploring Possibilities with Integrity Everywhere</footer>
 </body>
 </html>
