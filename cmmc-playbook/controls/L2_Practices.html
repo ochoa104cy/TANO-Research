@@ -9,22 +9,22 @@
   <style>
     /* Scrollable table container */
     .table-wrapper {
-      max-height: 600px;       /* Adjust table height */
-      overflow-y: auto;        /* Vertical scrollbar */
-      overflow-x: auto;        /* Horizontal scrollbar */
+      max-height: 600px;
+      overflow-y: auto;
+      overflow-x: auto;
       border: 1px solid #333;
       background: #111;
       border-radius: 6px;
       margin-top: 20px;
     }
 
-    /* Table styling */
     table {
       width: 100%;
       border-collapse: collapse;
       background: #1e1e1e;
       color: #fff;
       font-size: 14px;
+      display: none; /* Hidden until CSV loads */
     }
 
     th, td {
@@ -33,7 +33,6 @@
       vertical-align: top;
     }
 
-    /* Sticky header */
     th {
       background: #333;
       font-weight: bold;
@@ -47,7 +46,6 @@
       background: #252525;
     }
 
-    /* Search bar styling */
     .search-box {
       width: 100%;
       padding: 10px;
@@ -71,9 +69,10 @@
   <div class="card">
     <h1>CMMC Level 2 Practices</h1>
     <p><strong>TANO = Trust • Accuracy • Neutrality • Organization • Transparency</strong></p>
+
     <p>
-      This table is generated directly from the <code>L2_Practices.csv</code> file, which is
-      built from NIST SP 800-171 Rev.3 security requirements mapped to CMMC Level 2.
+      This table is generated directly from the
+      <code>L2_Practices.csv</code> file, mapped from NIST SP 800-171 Rev.3 security requirements.
     </p>
 
     <input
@@ -81,36 +80,26 @@
       id="searchInput"
       class="search-box"
       onkeyup="filterTable()"
-      placeholder="Search practices… (e.g., AC.L2, 3.1.1, encryption, MFA, logging)"
+      placeholder="Search practices… (e.g., AC.L2, 3.1.10, audit, encryption, MFA)"
     />
 
     <div id="status" class="loading">Loading Level 2 practices…</div>
 
-    <!-- ⭐ Scrollable table container -->
+    <!-- Scrollable table -->
     <div class="table-wrapper">
-  <table>
-    <thead>
-      <tr>
-        <th>Practice ID</th>
-        <th>Domain</th>
-        <th>NIST Ref</th>
-        <th>Practice Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>AC.L2-3.1.1</td>
-        <td>Access Control</td>
-        <td>3.1.1</td>
-        <td>Authorized Access</td>
-        <td>Full NIST description here...</td>
-      </tr>
-      <!-- Add more rows -->
-    </tbody>
-  </table>
-</div>
-
+      <table id="l2Table">
+        <thead>
+          <tr>
+            <th>Practice ID</th>
+            <th>Domain</th>
+            <th>NIST Ref</th>
+            <th>Practice Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody id="l2Body"></tbody>
+      </table>
+    </div>
   </div>
 
   <div class="card">
@@ -120,108 +109,100 @@
   <footer>© TANO Research — Exploring Possibilities with Integrity Everywhere</footer>
 
   <script>
-    /* CSV parser that supports quotes and commas */
+    /* Robust CSV parser */
     function parseCSV(text) {
       const rows = [];
-      const lines = text.split(/\r?\n/).filter(line => line.trim() !== "");
+      const lines = text.split(/\r?\n/).filter(l => l.trim() !== "");
+
       for (let line of lines) {
         const cells = [];
         let current = "";
         let inQuotes = false;
 
         for (let i = 0; i < line.length; i++) {
-          const char = line[i];
-          if (char === '"' ) {
+          const ch = line[i];
+
+          if (ch === '"') {
             if (inQuotes && line[i + 1] === '"') {
               current += '"';
               i++;
             } else {
               inQuotes = !inQuotes;
             }
-          } else if (char === ',' && !inQuotes) {
+          } else if (ch === ',' && !inQuotes) {
             cells.push(current);
             current = "";
           } else {
-            current += char;
+            current += ch;
           }
         }
         cells.push(current);
         rows.push(cells);
       }
+
       return rows;
     }
 
     function buildTable(rows) {
-      const status = document.getElementById("status");
       const table = document.getElementById("l2Table");
       const tbody = document.getElementById("l2Body");
+      const status = document.getElementById("status");
 
       if (rows.length <= 1) {
-        status.textContent = "No Level 2 practices found in L2_Practices.csv.";
+        status.textContent = "No Level 2 practices found in CSV.";
         return;
       }
 
       const header = rows[0];
-      const idxPracticeId  = header.indexOf("Practice_ID");
-      const idxDomain      = header.indexOf("Domain");
-      const idxNistRef     = header.indexOf("NIST_Ref");
-      const idxName        = header.indexOf("Practice_Name");
-      const idxDescription = header.indexOf("Practice_Description");
+      const colID   = header.indexOf("Practice_ID");
+      const colDom  = header.indexOf("Domain");
+      const colNist = header.indexOf("NIST_Ref");
+      const colName = header.indexOf("Practice_Name");
+      const colDesc = header.indexOf("Practice_Description");
 
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i];
-        if (!r[idxPracticeId]) continue;
+        if (!r[colID]) continue;
 
         const tr = document.createElement("tr");
 
-        const tdId   = document.createElement("td");
-        const tdDom  = document.createElement("td");
-        const tdRef  = document.createElement("td");
-        const tdName = document.createElement("td");
-        const tdDesc = document.createElement("td");
-
-        tdId.textContent   = r[idxPracticeId]   || "";
-        tdDom.textContent  = r[idxDomain]       || "";
-        tdRef.textContent  = r[idxNistRef]      || "";
-        tdName.textContent = r[idxName]         || "";
-        tdDesc.textContent = r[idxDescription]  || "";
-
-        tr.appendChild(tdId);
-        tr.appendChild(tdDom);
-        tr.appendChild(tdRef);
-        tr.appendChild(tdName);
-        tr.appendChild(tdDesc);
+        tr.innerHTML = `
+          <td>${r[colID] || ""}</td>
+          <td>${r[colDom] || ""}</td>
+          <td>${r[colNist] || ""}</td>
+          <td>${r[colName] || ""}</td>
+          <td>${r[colDesc] || ""}</td>
+        `;
 
         tbody.appendChild(tr);
       }
 
       status.style.display = "none";
-      table.style.display = "";
+      table.style.display = "table";
     }
 
     function filterTable() {
       const filter = document.getElementById("searchInput").value.toLowerCase();
       const rows = document.querySelectorAll("#l2Body tr");
+
       rows.forEach(row => {
-        const text = row.textContent.toLowerCase();
-        row.style.display = text.includes(filter) ? "" : "none";
+        const match = row.textContent.toLowerCase().includes(filter);
+        row.style.display = match ? "" : "none";
       });
     }
 
-    /* Load CSV */
+    /* Correct relative path to CSV */
     fetch("L2_Practices.csv")
-      .then(resp => {
-        if (!resp.ok) throw new Error("Unable to load L2_Practices.csv");
-        return resp.text();
+      .then(r => {
+        if (!r.ok) throw new Error("Could not load L2_Practices.csv");
+        return r.text();
       })
-      .then(text => {
-        const rows = parseCSV(text);
-        buildTable(rows);
-      })
+      .then(text => buildTable(parseCSV(text)))
       .catch(err => {
         document.getElementById("status").textContent =
           "Error loading Level 2 practices: " + err.message;
       });
   </script>
+
 </body>
 </html>
