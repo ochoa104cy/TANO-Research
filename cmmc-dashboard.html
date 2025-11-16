@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CMMC Dashboard — TANO Research</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 25px;
+    }
+
+    .dash-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 20px;
+      color: #fff;
+      box-shadow: 0 0 10px rgba(255,140,0,0.2);
+    }
+
+    .dash-card h2 {
+      margin-top: 0;
+      color: #ff9900;
+    }
+
+    .metric {
+      font-size: 22px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    a.button {
+      display: inline-block;
+      background: #ff8800;
+      color: black;
+      padding: 10px 15px;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    a.button:hover {
+      background: #ffaa33;
+    }
+
+    .tagline {
+      margin-top: -10px;
+      color: #ccc;
+      font-style: italic;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>TANO + CMMC Playbook Dashboard</h1>
+    <p class="tagline">Trust • Accuracy • Neutrality • Organization • Transparency</p>
+    <p>This dashboard gives you a fast, clean overview of your CMMC compliance library.</p>
+  </div>
+
+  <!-- MAIN DASHBOARD GRID -->
+  <div class="grid">
+
+    <!-- LEVEL 1 STATUS -->
+    <div class="dash-card">
+      <h2>CMMC Level 1</h2>
+      <p class="metric">17 / 17 Practices</p>
+      <p>Covers Federal Contract Information (FCI). Baseline requirements from FAR 52.204-21.</p>
+      <a href="cmmc-playbook/controls/L1_Practices.html" class="button">View L1 Practices</a>
+    </div>
+
+    <!-- LEVEL 2 STATUS -->
+    <div class="dash-card">
+      <h2>CMMC Level 2</h2>
+      <p class="metric">110 / 110 Practices</p>
+      <p>Aligns with NIST SP 800-171 Rev. 3 security requirements for protecting CUI.</p>
+      <a href="cmmc-playbook/controls/L2_Practices.html" class="button">View L2 Practices</a>
+    </div>
+
+    <!-- SSP -->
+    <div class="dash-card">
+      <h2>System Security Plan (SSP)</h2>
+      <p class="metric">Complete Template</p>
+      <p>Your structured, compliant SSP for documenting organizational security posture.</p>
+      <a href="cmmc-playbook/templates/SSP_Template.html" class="button">Open SSP</a>
+    </div>
+
+    <!-- POA&M -->
+    <div class="dash-card">
+      <h2>POA&M</h2>
+      <p class="metric">Tracking Enabled</p>
+      <p>Plan of Action & Milestones for tracking deficiencies and remediation timelines.</p>
+      <a href="cmmc-playbook/templates/POAM_Template.html" class="button">Open POA&M</a>
+    </div>
+
+    <!-- RISK REGISTER -->
+    <div class="dash-card">
+      <h2>Risk Register</h2>
+      <p class="metric">Active</p>
+      <p>A structured log of security risks, impact scores, likelihood, and mitigation plans.</p>
+      <a href="cmmc-playbook/templates/Risk_Register.html" class="button">Open Risk Register</a>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="dash-card">
+      <h2>Playbook Overview</h2>
+      <p class="metric">Summary</p>
+      <p>Complete explanation of purpose, scope, roadmap, and repository structure.</p>
+      <a href="cmmc-playbook/Overview.html" class="button">View Overview</a>
+    </div>
+
+    <!-- REFERENCES -->
+    <div class="dash-card">
+      <h2>Reference Library</h2>
+      <p class="metric">Complete Source List</p>
+      <p>All NIST, DFARS, FAR, CUI, and CCP-level references used in this Playbook.</p>
+      <a href="references.html" class="button">View References</a>
+    </div>
+
+  </div>
+
+  <div class="card" style="margin-top:25px;">
+    <p><a href="index.html">&larr; Back to Home</a></p>
+  </div>
+
+  <footer>© TANO Research — Exploring Possibilities with Integrity Everywhere</footer>
+
+</body>
+</html>
