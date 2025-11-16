@@ -3,51 +3,125 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Risk Register – TANO CMMC Playbook</title>
+  <title>Risk Register — TANO CMMC Playbook</title>
   <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .risk-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .risk-table th,
+    .risk-table td {
+      padding: 8px;
+      border: 1px solid #333;
+      vertical-align: top;
+    }
+    .risk-table th {
+      background: #222;
+      text-align: left;
+    }
+    .hint {
+      font-size: 13px;
+      color: #aaa;
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+    .risk-high { color: #ff6b6b; font-weight: bold; }
+    .risk-med { color: #ffd166; font-weight: bold; }
+    .risk-low { color: #7ed957; font-weight: bold; }
+  </style>
 </head>
+
 <body>
   <div class="card">
     <h1>Risk Register</h1>
-    <p><strong>TANO CMMC Playbook – Risk Register Template</strong></p>
+    <p><strong>TANO = Trust • Accuracy • Neutrality • Organization • Transparency</strong></p>
+    <p class="hint">
+      Use this register to track risks related to CUI/FCI, systems, vendors, and processes across CMMC domains.
+      Each risk should link to specific CMMC / NIST controls and mitigation plans.
+    </p>
   </div>
 
   <div class="card">
-    <p>Use this table to track cybersecurity risks related to CUI and key systems.</p>
-
-    <table>
+    <table class="risk-table">
       <thead>
         <tr>
           <th>Risk ID</th>
-          <th>Risk</th>
-          <th>Description</th>
-          <th>Impact</th>
+          <th>Risk Description</th>
+          <th>Source / Trigger</th>
+          <th>CMMC / NIST Ref</th>
           <th>Likelihood</th>
-          <th>Score</th>
-          <th>Mitigation</th>
+          <th>Impact</th>
+          <th>Risk Level</th>
+          <th>Mitigation / Controls</th>
+          <th>Owner</th>
           <th>Status</th>
+          <th>Next Review</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>R-001</td>
-          <td>Unauthorized Access</td>
-          <td>Weak password policy on remote access systems</td>
+          <td>
+            Unauthorized access to CUI due to weak legacy access controls on shared file server.
+          </td>
+          <td>
+            Legacy permissions, shared accounts, lack of periodic access reviews.
+          </td>
+          <td>
+            AC.L2-3.1.1, AC.L2-3.1.5, IA.L2-3.5.1
+          </td>
+          <td>Likely</td>
           <td>High</td>
-          <td>Medium</td>
-          <td>12</td>
-          <td>Enforce MFA and stronger password policy</td>
+          <td class="risk-high">High</td>
+          <td>
+            <ul>
+              <li>Implement least privilege and remove shared accounts.</li>
+              <li>Add periodic access reviews and group-based access.</li>
+              <li>Integrate with centralized identity provider (IdP).</li>
+            </ul>
+          </td>
+          <td>[Owner Name]</td>
           <td>In Progress</td>
+          <td>[2025-03-01]</td>
         </tr>
-        <!-- Add additional risks here -->
+
+        <tr>
+          <td>R-002</td>
+          <td>
+            Incomplete endpoint logging reduces ability to detect and respond to malware infections.
+          </td>
+          <td>
+            Some endpoints lack EDR deployment and centralized logging.
+          </td>
+          <td>
+            AU.L2-3.3.1, SI.L2-3.15.4, SI.L2-3.15.5
+          </td>
+          <td>Possible</td>
+          <td>Medium</td>
+          <td class="risk-med">Medium</td>
+          <td>
+            <ul>
+              <li>Expand EDR deployment to all in-scope endpoints.</li>
+              <li>Forward EDR events to SIEM and tune alerts.</li>
+              <li>Update incident response runbooks for malware events.</li>
+            </ul>
+          </td>
+          <td>[Owner Name]</td>
+          <td>Open</td>
+          <td>[2025-04-15]</td>
+        </tr>
+
+        <!-- Add more risks as needed -->
       </tbody>
     </table>
   </div>
 
   <div class="card">
-    <p><a href="../../cmmc.html">← Back to TANO + CMMC Playbook</a></p>
+    <p><a href="../Overview.html">&larr; Back to CMMC Playbook Overview</a></p>
   </div>
 
-  <footer>© TANO Research — Exploring Possibilities with Integrity Everywhere</footer>
+  <footer>© TANO Research — Exploring Possibilities Everywhere</footer>
 </body>
 </html>

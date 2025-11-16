@@ -3,51 +3,116 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>POA&amp;M – TANO CMMC Playbook</title>
+  <title>POA&amp;M Template — TANO CMMC Playbook</title>
   <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .poam-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .poam-table th,
+    .poam-table td {
+      padding: 8px;
+      border: 1px solid #333;
+      vertical-align: top;
+    }
+    .poam-table th {
+      background: #222;
+      text-align: left;
+    }
+    .hint {
+      font-size: 13px;
+      color: #aaa;
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+    .status-open { color: #ffb347; font-weight: bold; }
+    .status-closed { color: #7ed957; font-weight: bold; }
+  </style>
 </head>
+
 <body>
   <div class="card">
-    <h1>Plan of Action &amp; Milestones (POA&amp;M)</h1>
-    <p><strong>TANO CMMC Playbook – POA&amp;M Template</strong></p>
+    <h1>Plan of Action &amp; Milestones (POA&amp;M) Template</h1>
+    <p><strong>TANO = Trust • Accuracy • Neutrality • Organization • Transparency</strong></p>
+    <p class="hint">
+      Use this template to track identified weaknesses, planned remediation activities, and closure status for CMMC and NIST 800-171 controls.
+    </p>
   </div>
 
   <div class="card">
-    <p>Use this table to track gaps, remediation tasks, and status.</p>
-
-    <table>
+    <table class="poam-table">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Control</th>
-          <th>Issue</th>
-          <th>Severity</th>
-          <th>Planned Fix</th>
+          <th>POA&amp;M ID</th>
+          <th>Weakness / Finding</th>
+          <th>CMMC / NIST Ref</th>
+          <th>Risk Rating</th>
+          <th>Planned Actions &amp; Milestones</th>
           <th>Owner</th>
-          <th>Due Date</th>
+          <th>Start Date</th>
+          <th>Target Completion</th>
           <th>Status</th>
+          <th>Closure Evidence</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>1</td>
-          <td>AC.L1-3.1.1</td>
-          <td>Missing MFA on remote access</td>
+          <td>POAM-001</td>
+          <td>
+            Missing MFA for remote administrative access to CUI system.
+          </td>
+          <td>
+            AC.L2-3.1.12 / IA.L2-3.5.3
+          </td>
           <td>High</td>
-          <td>Enable MFA for VPN and admin accounts</td>
-          <td>IT Admin</td>
-          <td>2025-01-15</td>
-          <td>In Progress</td>
+          <td>
+            <ul>
+              <li>Select and configure MFA solution for VPN and admin portals.</li>
+              <li>Update access control policy to require MFA.</li>
+              <li>Roll out training to admins and test failover.</li>
+            </ul>
+          </td>
+          <td>[Owner Name]</td>
+          <td>[2025-02-01]</td>
+          <td>[2025-03-15]</td>
+          <td class="status-open">Open</td>
+          <td>[Screenshots, change tickets, updated policies]</td>
         </tr>
+
+        <tr>
+          <td>POAM-002</td>
+          <td>
+            Incomplete audit log coverage for critical servers and cloud services.
+          </td>
+          <td>
+            AU.L2-3.3.1 / AU.L2-3.3.2
+          </td>
+          <td>Medium</td>
+          <td>
+            <ul>
+              <li>Enable centralized logging for all in-scope servers.</li>
+              <li>Integrate cloud logs into SIEM.</li>
+              <li>Define alert thresholds and review cadence.</li>
+            </ul>
+          </td>
+          <td>[Owner Name]</td>
+          <td>[2025-02-10]</td>
+          <td>[2025-04-01]</td>
+          <td class="status-open">Open</td>
+          <td>[SIEM config export, log samples, procedures]</td>
+        </tr>
+
         <!-- Add more rows as needed -->
       </tbody>
     </table>
   </div>
 
   <div class="card">
-    <p><a href="../../cmmc.html">← Back to TANO + CMMC Playbook</a></p>
+    <p><a href="../Overview.html">&larr; Back to CMMC Playbook Overview</a></p>
   </div>
 
-  <footer>© TANO Research — Exploring Possibilities with Integrity Everywhere</footer>
+  <footer>© TANO Research — Exploring Possibilities Everywhere</footer>
 </body>
 </html>
