@@ -116,4 +116,21 @@ hr {
   text-align: center;
   color: #94a3b8;
 }
+.topnav {
+  background: #0f172a;
+  padding: 0.7rem 1rem;
+  display: flex;
+  gap: 1.5rem;
+  border-bottom: 1px solid #334155;
+}
+
+.topnav a {
+  color: #38bdf8;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.topnav a:hover {
+  color: #0ea5e9;
+}
 
