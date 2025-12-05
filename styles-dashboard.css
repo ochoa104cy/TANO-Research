@@ -1,0 +1,138 @@
+/* Dashboard container */
+.dashboard-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: auto;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.filter-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.chip-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chip {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  background-color: #1e293b;
+  color: white;
+  border: 1px solid #475569;
+  cursor: pointer;
+}
+
+.chip-active {
+  background-color: #0ea5e9;
+  border-color: #38bdf8;
+}
+
+.stat-card {
+  background: #1e293b;
+  padding: 1rem;
+  border-radius: 10px;
+  color: white;
+  border: 1px solid #334155;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Table */
+.table-wrapper {
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #0f172a;
+  overflow: hidden;
+  height: 70vh;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th {
+  background: #1e293b;
+  padding: 0.6rem;
+  text-align: left;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+td {
+  padding: 0.6rem;
+  border-bottom: 1px solid #1e293b;
+  color: white;
+}
+
+tr:hover {
+  background-color: #1e293b;
+}
+
+.selected-row {
+  background-color: #0ea5e9 !important;
+}
+
+/* Detail panel */
+.detail-panel {
+  background: #1e293b;
+  border-radius: 10px;
+  padding: 1rem;
+  border: 1px solid #334155;
+  color: white;
+  height: fit-content;
+}
+
+.detail-footer {
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #334155;
+}
+
+.hint {
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+
+/* Layout */
+.layout {
+  display: grid;
+  grid-template-columns: 2.1fr 1fr;
+  gap: 1rem;
+}
+
+/* Headers */
+.tano-header {
+  text-align: center;
+  padding: 1.5rem;
+  background: #0f172a;
+  color: #38bdf8;
+}
+
+.subtitle {
+  color: #94a3b8;
+}
+
+/* Footer */
+.tano-footer {
+  text-align: center;
+  padding: 1rem;
+  color: #94a3b8;
+}
