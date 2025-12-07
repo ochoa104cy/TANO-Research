@@ -9,90 +9,40 @@
 
   <style>
     .card { overflow: visible !important; }
-
     .table-wrapper {
-      max-height: 600px;
-      min-height: 300px;
-      overflow-y: auto;
-      overflow-x: auto;
-      border: 1px solid #333;
-      border-radius: 6px;
-      background: #111;
-      margin-top: 20px;
+      max-height: 600px; overflow-y: auto; border: 1px solid #333;
+      background: #111; border-radius: 6px; margin-top: 20px;
     }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #1e1e1e;
-      color: #fff;
-      font-size: 14px;
-    }
-
-    th, td {
-      padding: 10px;
-      border: 1px solid #333;
-      vertical-align: top;
-    }
-
-    th {
-      background: #333;
-      position: sticky;
-      top: 0;
-      z-index: 3;
-    }
-
-    tr:nth-child(even) {
-      background: #252525;
-    }
-
+    table { width: 100%; border-collapse: collapse; background: #1e1e1e; color: #fff; }
+    th, td { padding: 10px; border: 1px solid #333; }
+    th { background: #333; position: sticky; top: 0; }
+    tr:nth-child(even) { background: #252525; }
     .search-box {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 6px;
-      border: 1px solid #444;
-      background: #111;
-      color: #fff;
-      font-size: 16px;
+      width: 100%; padding: 10px; margin-top: 10px;
+      background: #111; border: 1px solid #444; color: #fff;
     }
-
-    .nav-row {
-      margin: 1rem 0;
-    }
-
-    .loading {
-      margin-top: 15px;
-      color: #aaa;
-      font-style: italic;
-    }
+    .nav-row { margin: 1rem 0; }
   </style>
 </head>
 
 <body>
 
-<!-- Navigation -->
 <div class="nav-row">
   <a href="../Overview.html" class="btn-primary">← Back to Playbook Overview</a>
-  &nbsp; | &nbsp;
   <a href="../../cmmc.html" class="btn-primary">← Return to CMMC Center</a>
-  &nbsp; | &nbsp;
   <a href="../../index.html" class="btn-primary">← Back to TANO Home</a>
 </div>
 
 <div class="card">
+
   <h1>CMMC Level 2 Practices</h1>
+  <p><b>TANO — Trust • Accuracy • Neutrality • Organization • Transparency</b></p>
+  <p>This table loads directly from <code>L2_Practices.csv</code>.</p>
 
-  <p><b>TANO = Trust • Accuracy • Neutrality • Organization • Transparency</b></p>
-
-  <p>This interactive table loads directly from <code>L2_Practices.csv</code>, mapped to NIST SP 800-171 Rev.3 requirements.</p>
-
-  <!-- Search box -->
-  <input id="searchInput" class="search-box" placeholder="Search (e.g., AC.L2, MFA, encryption)" onkeyup="filterTable()">
+  <input id="searchInput" class="search-box" placeholder="Search (e.g. AC.L2, MFA, audit)" onkeyup="filterTable()" />
 
   <div id="status" class="loading">Loading Level 2 practices…</div>
 
-  <!-- Data table -->
   <div class="table-wrapper">
     <table id="l2Table">
       <thead>
@@ -101,18 +51,16 @@
           <th>Domain</th>
           <th>Practice Name</th>
           <th>Description</th>
-          <th>NIST Ref</th>
+          <th>Source</th>
         </tr>
       </thead>
       <tbody id="l2Body"></tbody>
     </table>
   </div>
+
 </div>
 
-<footer>© TANO Research — Exploring Possibilities with Integrity Everywhere</footer>
-
 <script>
-/* CSV parser supporting quoted + comma fields */
 function parseCSV(text) {
   const rows = [];
   const lines = text.split(/\r?\n/).filter(line => line.trim() !== "");
@@ -125,16 +73,8 @@ function parseCSV(text) {
     for (let i = 0; i < line.length; i++) {
       const c = line[i];
 
-      if (c === '"') {
-        q = !q;
-        continue;
-      }
-
-      if (c === ',' && !q) {
-        cells.push(cur);
-        cur = "";
-        continue;
-      }
+      if (c === '"') { q = !q; continue; }
+      if (c === ',' && !q) { cells.push(cur); cur = ""; continue; }
 
       cur += c;
     }
@@ -147,23 +87,15 @@ function parseCSV(text) {
 }
 
 function buildTable(rows) {
-  const status = document.getElementById("status");
-  const tbody = document.getElementById("l2Body");
-
-  if (rows.length <= 1) {
-    status.textContent = "CSV file empty or missing data.";
-    return;
-  }
-
   const header = rows[0];
 
-const idxPracticeId  = header.indexOf("Practice ID");
-const idxDomain      = header.indexOf("Domain");
-const idxName        = header.indexOf("Practice Name");
-const idxDescription = header.indexOf("Description");
-// if you keep a separate NIST ref column later:
-const idxNistRef     = header.indexOf("NIST Ref") >= 0 ? header.indexOf("NIST Ref") : -1;
+  const idxId   = header.indexOf("Practice ID");
+  const idxDom  = header.indexOf("Domain");
+  const idxName = header.indexOf("Practice Name");
+  const idxDesc = header.indexOf("Description");
+  const idxSrc  = header.indexOf("Source");
 
+  const tbody = document.getElementById("l2Body");
 
   for (let i = 1; i < rows.length; i++) {
     const r = rows[i];
@@ -174,35 +106,26 @@ const idxNistRef     = header.indexOf("NIST Ref") >= 0 ? header.indexOf("NIST Re
     tr.innerHTML = `
       <td>${r[idxId]}</td>
       <td>${r[idxDom]}</td>
-      <td>${r[idxRef]}</td>
       <td>${r[idxName]}</td>
       <td>${r[idxDesc]}</td>
+      <td>${r[idxSrc]}</td>
     `;
-
     tbody.appendChild(tr);
   }
 
-  status.style.display = "none";
+  document.getElementById("status").style.display = "none";
 }
 
-/* Search filter */
 function filterTable() {
   const f = document.getElementById("searchInput").value.toLowerCase();
   const rows = document.querySelectorAll("#l2Body tr");
-
-  rows.forEach(row => {
-    row.style.display = row.textContent.toLowerCase().includes(f) ? "" : "none";
-  });
+  rows.forEach(row => row.style.display = row.textContent.toLowerCase().includes(f) ? "" : "none");
 }
 
-/* Load CSV — FINAL CORRECT URL */
 fetch("https://ochoa104cy.github.io/TANO-Research/cmmc-playbook/controls/L2_Practices.csv")
-  .then(resp => resp.text())
-  .then(text => buildTable(parseCSV(text)))
-  .catch(err => {
-    document.getElementById("status").textContent =
-      "Error loading L2_Practices.csv — " + err;
-  });
+  .then(r => r.text())
+  .then(t => buildTable(parseCSV(t)))
+  .catch(e => document.getElementById("status").textContent = "Failed to load L2 CSV");
 </script>
 
 </body>

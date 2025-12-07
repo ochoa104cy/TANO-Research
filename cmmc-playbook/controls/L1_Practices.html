@@ -26,7 +26,6 @@
 
 <body>
 
-<!-- NAVIGATION -->
 <div class="nav-row">
   <a href="../Overview.html" class="btn-primary">← Back to Playbook Overview</a>
   <a href="../../cmmc.html" class="btn-primary">← Return to CMMC Center</a>
@@ -38,7 +37,7 @@
   <p><b>TANO = Trust • Accuracy • Neutrality • Organization • Transparency</b></p>
   <p>This table loads directly from <code>L1_Practices.csv</code>.</p>
 
-  <input id="searchInput" class="search-box" placeholder="Search (e.g. AC.L1, firewall)" onkeyup="filterTable()" />
+  <input id="searchInput" class="search-box" placeholder="Search (e.g. AC.L1, physical)" onkeyup="filterTable()" />
 
   <div id="status" class="loading">Loading...</div>
 
@@ -50,7 +49,7 @@
           <th>Domain</th>
           <th>Practice Name</th>
           <th>Description</th>
-          <th>NIST Ref</th>
+          <th>Source</th>
         </tr>
       </thead>
       <tbody id="l1Body"></tbody>
@@ -60,62 +59,69 @@
 
 <script>
 function parseCSV(text) {
-  const rows = []; const lines = text.split(/\r?\n/);
-  for (let line of lines) {
-    if (!line.trim()) continue;
-    const cells = []; let cur = ""; let q = false;
+  const rows = [];
+  const lines = text.split(/\r?\n/).filter(line => line.trim() !== "");
+
+  for (const line of lines) {
+    let cells = [];
+    let cur = "";
+    let q = false;
+
     for (let i = 0; i < line.length; i++) {
       const c = line[i];
+
       if (c === '"') { q = !q; continue; }
       if (c === ',' && !q) { cells.push(cur); cur = ""; continue; }
+
       cur += c;
     }
+
     cells.push(cur);
     rows.push(cells);
   }
+
   return rows;
 }
 
 function buildTable(rows) {
-  const tbody = document.getElementById("l1Body");
-  const status = document.getElementById("status");
   const header = rows[0];
 
-const idxPracticeId  = header.indexOf("Practice ID");
-const idxDomain      = header.indexOf("Domain");
-const idxName        = header.indexOf("Practice Name");
-const idxDescription = header.indexOf("Description");
-// if you keep a separate NIST ref column later:
-const idxNistRef     = header.indexOf("NIST Ref") >= 0 ? header.indexOf("NIST Ref") : -1;
+  const idxId   = header.indexOf("Practice ID");
+  const idxDom  = header.indexOf("Domain");
+  const idxName = header.indexOf("Practice Name");
+  const idxDesc = header.indexOf("Description");
+  const idxSrc  = header.indexOf("Source");
 
+  const tbody = document.getElementById("l1Body");
 
   for (let i = 1; i < rows.length; i++) {
     const r = rows[i];
+    if (!r[idxId]) continue;
+
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${r[a]}</td>
-      <td>${r[b]}</td>
-      <td>${r[c]}</td>
-      <td>${r[d]}</td>
-      <td>${r[e]}</td>
+      <td>${r[idxId]}</td>
+      <td>${r[idxDom]}</td>
+      <td>${r[idxName]}</td>
+      <td>${r[idxDesc]}</td>
+      <td>${r[idxSrc]}</td>
     `;
     tbody.appendChild(tr);
   }
-  status.style.display = "none";
+
+  document.getElementById("status").style.display = "none";
 }
 
 function filterTable() {
   const f = document.getElementById("searchInput").value.toLowerCase();
   const rows = document.querySelectorAll("#l1Body tr");
-  rows.forEach(r => r.style.display = r.textContent.toLowerCase().includes(f) ? "" : "none");
+  rows.forEach(row => row.style.display = row.textContent.toLowerCase().includes(f) ? "" : "none");
 }
 
 fetch("https://ochoa104cy.github.io/TANO-Research/cmmc-playbook/controls/L1_Practices.csv")
   .then(r => r.text())
   .then(t => buildTable(parseCSV(t)))
-  .catch(() => {
-    document.getElementById("status").innerHTML = "Failed to load L1_Practices.csv";
-  });
+  .catch(e => document.getElementById("status").textContent = "Failed to load L1 CSV");
 </script>
 
 </body>
