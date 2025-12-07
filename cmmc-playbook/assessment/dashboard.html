@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CMMC Assessment Dashboard — TANO Research</title>
+  <link rel="stylesheet" href="../styles.css" />
+
+  <!-- Chart.js for interactive graphs -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .stat-card {
+      padding: 0.75rem 1rem;
+      background: #111;
+      border-radius: 8px;
+      border: 1px solid #333;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+    .stat-value {
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .chart-container {
+      background: #111;
+      border-radius: 8px;
+      border: 1px solid #333;
+      padding: 0.75rem;
+      min-height: 260px;
+    }
+    .chart-container h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+    .chart-container canvas {
+      width: 100%;
+      height: 210px;
+    }
+    .filter-row {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .filter-row select {
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background: #111;
+      color: #fff;
+    }
+    .table-wrapper {
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #333;
+      border-radius: 8px;
+      background: #111;
+      margin-top: 1rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1e1e1e;
+      color: #fff;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 6px 8px;
+      border: 1px solid #333;
+      vertical-align: top;
+    }
+    th {
+      background: #333;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    tr:nth-child(even) {
+      background: #252525;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 11px;
+      border: 1px solid #555;
+    }
+    .badge-l1 { background: #203040; }
+    .badge-l2 { background: #402030; }
+    .badge-status-impl { background: #1f4f2b; }
+    .badge-status-not { background: #5a2020; }
+    .badge-status-na { background: #444422; }
+    .badge-status-none { background: #333333; }
+  </style>
+</head>
+<body>
+
+<!-- Top navigation (keeps your existing style) -->
+<div style="margin:1rem 0;">
+  <a href="index.html" class="btn-primary">← Back to Assessment Home</a>
+  &nbsp;|&nbsp;
+  <a href="../cmmc.html" class="btn-primary">← Return to CMMC Center</a>
+  &nbsp;|&nbsp;
+  <a href="../index.html" class="btn-primary">← Back to TANO Home</a>
+</div>
+
+<div class="card">
+  <h1>CMMC Assessment Dashboard</h1>
+  <p>
+    This dashboard summarizes your current CMMC Level 1 and Level 2 assessment progress.
+    All data is read from your local assessment state (<code>tano_cmmc_L1</code> and
+    <code>tano_cmmc_L2</code>) in this browser.
+  </p>
+
+  <!-- View filter -->
+  <div class="filter-row">
+    <label for="viewMode"><strong>View controls for:</strong></label>
+    &nbsp;
+    <select id="viewMode">
+      <option value="all">All Controls (L1 + L2)</option>
+      <option value="L1">Level 1 Only</option>
+      <option value="L2">Level 2 Only</option>
+    </select>
+  </div>
+
+  <!-- Overall stats -->
+  <h2>Overall Assessment Status</h2>
+  <div id="overallStats" class="stat-grid"></div>
+
+  <!-- Level-by-level stats -->
+  <h2>Level Breakdown</h2>
+  <div id="levelsStats" class="stat-grid"></div>
+
+  <!-- Charts -->
+  <h2>Visual Overview</h2>
+  <div class="chart-grid">
+    <div class="chart-container">
+      <h3>Completion Breakdown</h3>
+      <canvas id="completionDonut"></canvas>
+    </div>
+    <div class="chart-container">
+      <h3>Level Comparison (Implemented)</h3>
+      <canvas id="levelBar"></canvas>
+    </div>
+    <div class="chart-container">
+      <h3>Domain Maturity (Radar)</h3>
+      <canvas id="domainRadar"></canvas>
+    </div>
+  </div>
+
+  <!-- Incomplete controls -->
+  <h2 style="margin-top:1.75rem;">Incomplete Controls</h2>
+  <p style="font-size:0.9rem;">
+    This table lists all in-scope controls that are either
+    <strong>Not Implemented</strong> or <strong>not yet assessed</strong>.
+  </p>
+
+  <button class="btn-primary" onclick="downloadIncompleteCSV()">Download Incomplete Controls CSV</button>
+
+  <div class="table-wrapper">
+    <table id="incompleteTable">
+      <thead>
+        <tr>
+          <th>Level</th>
+          <th>Practice ID</th>
+          <th>Domain</th>
+          <th>Practice Name</th>
+          <th>Status</th>
+          <th>Notes / Evidence</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<footer>© TANO Research — Exploring Possibilities with Integrity Everywhere</footer>
+
+<script>
+/* ---------- Helpers to load assessment state ---------- */
+
+function loadState(key) {
+  const raw = localStorage.getItem(key);
+  if (!raw) return {};
+  try { return JSON.parse(raw); } catch (e) { return {}; }
+}
+
+function flattenRecords() {
+  const l1 = loadState("tano_cmmc_L1");
+  const l2 = loadState("tano_cmmc_L2");
+  const records = [];
+
+  Object.keys(l1).forEach(id => {
+    const r = l1[id];
+    records.push({
+      ...r,
+      level: "L1"
+    });
+  });
+
+  Object.keys(l2).forEach(id => {
+    const r = l2[id];
+    records.push({
+      ...r,
+      level: "L2"
+    });
+  });
+
+  return records;
+}
+
+function filterByViewMode(records, mode) {
+  if (mode === "L1") return records.filter(r => r.level === "L1");
+  if (mode === "L2") return records.filter(r => r.level === "L2");
+  return records;
+}
+
+/* ---------- Stats + domain calculations ---------- */
+
+function computeStats(records) {
+  let total = 0, implemented = 0, notImpl = 0, na = 0;
+  records.forEach(r => {
+    if (r.inScope === false) return;
+    total++;
+    if (r.status === "implemented") implemented++;
+    else if (r.status === "not_implemented") notImpl++;
+    else if (r.status === "na") na++;
+  });
+  const pct = total > 0 ? Math.round((implemented / total) * 100) : 0;
+  return { total, implemented, notImpl, na, pct };
+}
+
+function computeDomainMaturity(records) {
+  const byDomain = {};
+  records.forEach(r => {
+    if (r.inScope === false) return;
+    const d = r.domain || "Unspecified";
+    if (!byDomain[d]) byDomain[d] = { total: 0, implemented: 0 };
+    byDomain[d].total++;
+    if (r.status === "implemented") byDomain[d].implemented++;
+  });
+
+  const domains = Object.keys(byDomain).sort();
+  const maturity = domains.map(d => {
+    const x = byDomain[d];
+    return x.total > 0 ? Math.round((x.implemented / x.total) * 100) : 0;
+  });
+
+  return { domains, maturity };
+}
+
+/* ---------- Rendering stat cards ---------- */
+
+function renderOverallStats(allRecords, viewRecords) {
+  const overallEl = document.getElementById("overallStats");
+
+  const allStats = computeStats(allRecords);
+  const viewStats = computeStats(viewRecords);
+
+  overallEl.innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">All Levels — In-Scope Controls</div>
+      <div class="stat-value">${allStats.total}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">All Levels — Implemented</div>
+      <div class="stat-value">${allStats.implemented}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">All Levels — Not Implemented</div>
+      <div class="stat-value">${allStats.notImpl}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">All Levels — Completion %</div>
+      <div class="stat-value">${allStats.pct}%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Current View — In-Scope Controls</div>
+      <div class="stat-value">${viewStats.total}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Current View — Completion %</div>
+      <div class="stat-value">${viewStats.pct}%</div>
+    </div>
+  `;
+}
+
+function renderLevelStats(records) {
+  const levelsEl = document.getElementById("levelsStats");
+  const l1 = records.filter(r => r.level === "L1");
+  const l2 = records.filter(r => r.level === "L2");
+
+  const s1 = computeStats(l1);
+  const s2 = computeStats(l2);
+
+  levelsEl.innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">Level 1 — In-Scope</div>
+      <div class="stat-value">${s1.total}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Level 1 — Implemented</div>
+      <div class="stat-value">${s1.implemented}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Level 1 — Completion %</div>
+      <div class="stat-value">${s1.pct}%</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-label">Level 2 — In-Scope</div>
+      <div class="stat-value">${s2.total}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Level 2 — Implemented</div>
+      <div class="stat-value">${s2.implemented}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Level 2 — Completion %</div>
+      <div class="stat-value">${s2.pct}%</div>
+    </div>
+  `;
+}
+
+/* ---------- Charts (Chart.js) ---------- */
+
+let completionChart, levelChart, radarChart;
+
+function initCharts() {
+  const donutCtx = document.getElementById("completionDonut").getContext("2d");
+  const levelCtx = document.getElementById("levelBar").getContext("2d");
+  const radarCtx = document.getElementById("domainRadar").getContext("2d");
+
+  completionChart = new Chart(donutCtx, {
+    type: "doughnut",
+    data: {
+      labels: ["Implemented", "Not Implemented", "N/A"],
+      datasets: [{
+        data: [0, 0, 0]
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  });
+
+  levelChart = new Chart(levelCtx, {
+    type: "bar",
+    data: {
+      labels: ["Level 1", "Level 2"],
+      datasets: [{
+        label: "Implemented Controls",
+        data: [0, 0]
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: { beginAtZero: true, ticks: { stepSize: 5 } }
+      }
+    }
+  });
+
+  radarChart = new Chart(radarCtx, {
+    type: "radar",
+    data: {
+      labels: [],
+      datasets: [{
+        label: "Domain Maturity (%)",
+        data: []
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        r: {
+          min: 0,
+          max: 100,
+          ticks: { stepSize: 20 }
+        }
+      }
+    }
+  });
+}
+
+function updateCharts(allRecords, viewRecords) {
+  // Completion donut (current view)
+  const stats = computeStats(viewRecords);
+  completionChart.data.datasets[0].data = [
+    stats.implemented,
+    stats.notImpl,
+    stats.na
+  ];
+  completionChart.update();
+
+  // Level comparison (all records)
+  const l1 = allRecords.filter(r => r.level === "L1");
+  const l2 = allRecords.filter(r => r.level === "L2");
+  const s1 = computeStats(l1);
+  const s2 = computeStats(l2);
+
+  levelChart.data.datasets[0].data = [s1.implemented, s2.implemented];
+  levelChart.update();
+
+  // Radar by domain (current view)
+  const domStats = computeDomainMaturity(viewRecords);
+  radarChart.data.labels = domStats.domains;
+  radarChart.data.datasets[0].data = domStats.maturity;
+  radarChart.update();
+}
+
+/* ---------- Incomplete controls table + CSV ---------- */
+
+function getIncomplete(records) {
+  return records.filter(r => {
+    if (r.inScope === false) return false;
+    return r.status !== "implemented";
+  });
+}
+
+function renderIncompleteTable(records) {
+  const tbody = document.querySelector("#incompleteTable tbody");
+  tbody.innerHTML = "";
+  const incomplete = getIncomplete(records);
+
+  incomplete.forEach(r => {
+    const tr = document.createElement("tr");
+
+    const statusLabel =
+      r.status === "implemented" ? "Implemented" :
+      r.status === "not_implemented" ? "Not Implemented" :
+      r.status === "na" ? "N/A" :
+      "Not Assessed";
+
+    const statusClass =
+      r.status === "implemented" ? "badge-status-impl" :
+      r.status === "not_implemented" ? "badge-status-not" :
+      r.status === "na" ? "badge-status-na" :
+      "badge-status-none";
+
+    tr.innerHTML = `
+      <td>
+        <span class="badge ${r.level === "L1" ? "badge-l1" : "badge-l2"}">${r.level}</span>
+      </td>
+      <td>${r.id || ""}</td>
+      <td>${r.domain || ""}</td>
+      <td>${r.name || ""}</td>
+      <td><span class="badge ${statusClass}">${statusLabel}</span></td>
+      <td>${r.notes ? r.notes : "<span style='color:#777;'>None</span>"}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function downloadIncompleteCSV() {
+  const viewMode = document.getElementById("viewMode").value;
+  const allRecords = flattenRecords();
+  const viewRecords = filterByViewMode(allRecords, viewMode);
+  const incomplete = getIncomplete(viewRecords);
+
+  let csv = "Level,Practice ID,Domain,Practice Name,Status,Notes\n";
+  incomplete.forEach(r => {
+    const status =
+      r.status === "implemented" ? "Implemented" :
+      r.status === "not_implemented" ? "Not Implemented" :
+      r.status === "na" ? "N/A" :
+      "Not Assessed";
+
+    const row = [
+      r.level || "",
+      r.id || "",
+      r.domain || "",
+      r.name || "",
+      status,
+      (r.notes || "").replace(/"/g, '""')
+    ].map(v => `"${v}"`).join(",");
+    csv += row + "\n";
+  });
+
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "TANO_CMMC_Incomplete_Controls.csv";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* ---------- Main init ---------- */
+
+function refreshDashboard() {
+  const viewMode = document.getElementById("viewMode").value;
+
+  const allRecords = flattenRecords();
+  const viewRecords = filterByViewMode(allRecords, viewMode);
+
+  renderOverallStats(allRecords, viewRecords);
+  renderLevelStats(allRecords);
+  updateCharts(allRecords, viewRecords);
+  renderIncompleteTable(viewRecords);
+}
+
+document.getElementById("viewMode").addEventListener("change", refreshDashboard);
+
+initCharts();
+refreshDashboard();
+</script>
+
+</body>
+</html>
