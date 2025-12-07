@@ -1,75 +1,111 @@
 Practice ID,Domain,Practice Name,Description,Source
-AC.L2-3.1.3,Access Control,Account Management,Manage system accounts,NIST SP 800-171 Rev.3
-AC.L2-3.1.4,Access Control,Access Enforcement,Enforce approved authorizations,NIST SP 800-171 Rev.3
-AC.L2-3.1.5,Access Control,Separation of Duties,Separate duties of individuals,NIST SP 800-171 Rev.3
-AC.L2-3.1.6,Access Control,Least Privilege Employ least privilege principles,NIST SP 800-171 Rev.3
-AC.L2-3.1.7,Access Control,Privileged Functions,Control privileged actions,NIST SP 800-171 Rev.3
-AC.L2-3.1.8,Access Control,Unauthorized Use,Prevent non-privileged users from executing privileged functions,NIST SP 800-171 Rev.3
-AC.L2-3.1.9,Access Control,External Connections,Authorize usage of wireless access,NIST SP 800-171 Rev.3
-AC.L2-3.1.10,Access Control,Concurrent Sessions,Limit number of concurrent sessions per user,NIST SP 800-171 Rev.3
-AC.L2-3.1.11,Access Control,Session Lock,Prevent further access after a period of inactivity,NIST SP 800-171 Rev.3
-AC.L2-3.1.12,Access Control,Session Termination,Terminate sessions after defined conditions,NIST SP 800-171 Rev.3
-AC.L2-3.1.14,Access Control,Remote Access,Authorize remote access connections,NIST SP 800-171 Rev.3
-AC.L2-3.1.15,Access Control,Remote Access Control,Protect remote access sessions,NIST SP 800-171 Rev.3
-AC.L2-3.1.16,Access Control,Privileged Remote Access,Protect remote access for privileged functions,NIST SP 800-171 Rev.3
-AC.L2-3.1.17,Access Control,Remote Access Routing,Route remote access via controlled access points,NIST SP 800-171 Rev.3
-AC.L2-3.1.18,Access Control,Wireless Access Control,Control wireless access,NIST SP 800-171 Rev.3
-AC.L2-3.1.19,Access Control,Wireless Encryption,Encrypt wireless communication,NIST SP 800-171 Rev.3
-AU.L2-3.3.1,Audit & Accountability,Audit Events,Create audit logs for required events,NIST SP 800-171 Rev.3
-AU.L2-3.3.2,Audit & Accountability,Audit Review,Review and update logged events,NIST SP 800-171 Rev.3
-AU.L2-3.3.3,Audit & Accountability,Audit Timestamps,Ensure logs contain date/time,NIST SP 800-171 Rev.3
-AU.L2-3.3.4,Audit & Accountability,Audit Storage,Protect audit records from unauthorized access,NIST SP 800-171 Rev.3
-AU.L2-3.3.5,Audit & Accountability,Audit Monitoring,Alert inappropriate activities,NIST SP 800-171 Rev.3
-CA.L2-3.12.1,Assessment,Security Controls Assessment,Periodically assess controls,NIST SP 800-171 Rev.3
-CA.L2-3.12.2,Assessment,Plan of Actions & Milestones,Develop and implement POA&M,NIST SP 800-171 Rev.3
-CA.L2-3.12.3,Assessment,Continuous Monitoring,Monitor security in real-time,NIST SP 800-171 Rev.3
-CM.L2-3.4.1,Configuration Management,Baseline Configuration,Create and document baselines,NIST SP 800-171 Rev.3
-CM.L2-3.4.2,Configuration Management,Change Control,Control changes to system components,NIST SP 800-171 Rev.3
-CM.L2-3.4.3,Configuration Management,Configuration Settings,Implement and enforce settings,NIST SP 800-171 Rev.3
-CM.L2-3.4.4,Configuration Management,Security Impact Analysis,Analyze impact of changes,NIST SP 800-171 Rev.3
-CM.L2-3.4.5,Configuration Management,Access Restrictions,Restrict access to configuration settings,NIST SP 800-171 Rev.3
-CM.L2-3.4.6,Configuration Management,Least Functionality,Implement least functionality,NIST SP 800-171 Rev.3
-CM.L2-3.4.7,Configuration Management,System Components Inventory,Manage inventory of components,NIST SP 800-171 Rev.3
-CM.L2-3.4.8,Configuration Management,Code Integrity,Utilize integrity checking tools,NIST SP 800-171 Rev.3
-CM.L2-3.4.9,Configuration Management,Whitelist Authorized Software,Allow only authorized software,NIST SP 800-171 Rev.3
-IA.L2-3.5.3,Identification & Authentication,Multi-factor Authentication,Implement MFA for network access,NIST SP 800-171 Rev.3
-IA.L2-3.5.4,Identification & Authentication,Device Identification,Identify/authenticate devices,NIST SP 800-171 Rev.3
-IA.L2-3.5.5,Identification & Authentication,Replay Resistance,Protect identifiers and authenticators,NIST SP 800-171 Rev.3
-IA.L2-3.5.6,Identification & Authentication,Authenticator Management,Protect and manage passwords,NIST SP 800-171 Rev.3
-IR.L2-3.6.1,Incident Response,IR Policy & Procedures,Establish incident response capability,NIST SP 800-171 Rev.3
-IR.L2-3.6.2,Incident Response,Incident Reporting,Report incidents in a timely manner,NIST SP 800-171 Rev.3
-IR.L2-3.6.3,Incident Response,Incident Response Testing,Test and refine capabilities,NIST SP 800-171 Rev.3
-MA.L2-3.7.1,Maintenance,System Maintenance,Perform maintenance on systems,NIST SP 800-171 Rev.3
-MA.L2-3.7.2,Maintenance,Controlled Maintenance,Control maintenance activity,NIST SP 800-171 Rev.3
-MA.L2-3.7.3,Maintenance,Tool Control,Protect maintenance tools,NIST SP 800-171 Rev.3
-MA.L2-3.7.4,Maintenance,Remote Maintenance Control,Authorize and monitor remote maintenance,NIST SP 800-171 Rev.3
-MA.L2-3.7.5,Maintenance,Maintenance Termination,Terminate remote sessions,NIST SP 800-171 Rev.3
-MP.L2-3.8.1,Media Protection,Media Access Control,Protect and limit access to media,NIST SP 800-171 Rev.3
-MP.L2-3.8.2,Media Protection,Media Transport,Control media transport,NIST SP 800-171 Rev.3
-MP.L2-3.8.4,Media Protection,Media Storage,Protect media during storage,NIST SP 800-171 Rev.3
-MP.L2-3.8.5,Media Protection,Controlled Unclassified Media,Mark media appropriately,NIST SP 800-171 Rev.3
-PE.L2-3.10.2,Physical Protection,Physical Access Control,Protect and control access to facilities,NIST SP 800-171 Rev.3
-PE.L2-3.10.6,Physical Protection,Power Protection,Protect power equipment,NIST SP 800-171 Rev.3
-PE.L2-3.10.7,Physical Protection,Emergency Shutdown,Provide emergency shutdown capability,NIST SP 800-171 Rev.3
-PL.L2-3.11.1,Planning,System Security Plan,Develop SSP,NIST SP 800-171 Rev.3
-PL.L2-3.11.2,Planning,Control Inheritance,Define control inheritance,NIST SP 800-171 Rev.3
-PL.L2-3.11.3,Planning,Resource Allocation,Allocate resources for system protection,NIST SP 800-171 Rev.3
-RA.L2-3.11.4,Planning,Risk Assessment,Conduct formal risk assessments,NIST SP 800-171 Rev.3
-RA.L2-3.11.5,Planning,Vulnerability Management,Conduct vulnerability scans,NIST SP 800-171 Rev.3
-SC.L2-3.13.2,System & Communications Protection,Secure Remote Access,Protect remote access communications,NIST SP 800-171 Rev.3
-SC.L2-3.13.3,System & Communications Protection,Cryptographic Protections,Encrypt CUI in transit,NIST SP 800-171 Rev.3
-SC.L2-3.13.4,System & Communications Protection,Key Management,Protect and manage cryptographic keys,NIST SP 800-171 Rev.3
-SC.L2-3.13.6,System & Communications Protection,DNS Filtering,Implement domain filtering,NIST SP 800-171 Rev.3
-SC.L2-3.13.7,System & Communications Protection,Network Segregation,Segment networks,NIST SP 800-171 Rev.3
-SC.L2-3.13.8,System & Communications Protection,Email Protections,Protect email,NIST SP 800-171 Rev.3
-SC.L2-3.13.9,System & Communications Protection,Data Loss Prevention,Deploy DLP mechanisms,NIST SP 800-171 Rev.3
-SC.L2-3.13.10,System & Communications Protection,Mobile Code,Control mobile code execution,NIST SP 800-171 Rev.3
-SC.L2-3.13.11,System & Communications Protection,Firewalls,Use boundary protections,NIST SP 800-171 Rev.3
-SC.L2-3.13.12,System & Communications Protection,VoIP Security,Protect VoIP communications,NIST SP 800-171 Rev.3
-SC.L2-3.13.13,System & Communications Protection,Web Browser Protections,Implement browser security,NIST SP 800-171 Rev.3
-SI.L2-3.14.3,System & Information Integrity,Input Validation,Validate inputs,NIST SP 800-171 Rev.3
-SI.L2-3.14.4,System & Information Integrity,Monitoring Tools,Deploy SIEM/NIDS tools,NIST SP 800-171 Rev.3
-SI.L2-3.14.5,System & Information Integrity,System Monitoring,Monitor for indicators of attack,NIST SP 800-171 Rev.3
-SI.L2-3.14.6,System & Information Integrity,Spam Protection,Implement anti-spam,NIST SP 800-171 Rev.3
-SI.L2-3.14.7,System & Information Integrity,Software Integrity,Tools to detect unauthorized changes,NIST SP 800-171 Rev.3
-SI.L2-3.14.8,System & Information Integrity,Memory Protections,Protect against memory attacks,NIST SP 800-171 Rev.3
+AC.L2-3.1.1,Access Control,Authorized Users,Limit system access to authorized users,NIST SP 800-171 Rev.2
+AC.L2-3.1.2,Access Control,Authorized Transactions,Limit access to authorized transactions and functions,NIST SP 800-171 Rev.2
+AC.L2-3.1.3,Access Control,CUI Flow Control,Control the flow of CUI according to authorizations,NIST SP 800-171 Rev.2
+AC.L2-3.1.4,Access Control,Segregation of Duties,Separate duties to reduce fraud or error risk,NIST SP 800-171 Rev.2
+AC.L2-3.1.5,Access Control,Least Privilege,Enforce least privilege for user and process access,NIST SP 800-171 Rev.2
+AC.L2-3.1.6,Access Control,Non-Privileged Use,Require non-privileged accounts for non-security functions,NIST SP 800-171 Rev.2
+AC.L2-3.1.7,Access Control,Privileged Actions,Prevent non-privileged execution of privileged functions and log them,NIST SP 800-171 Rev.2
+AC.L2-3.1.8,Access Control,Login Attempt Limits,Limit the number of unsuccessful login attempts,NIST SP 800-171 Rev.2
+AC.L2-3.1.9,Access Control,Security Notices,Provide privacy and security notices as required,NIST SP 800-171 Rev.2
+AC.L2-3.1.10,Access Control,Session Lock,Use session lock after inactivity to protect display,NIST SP 800-171 Rev.2
+AC.L2-3.1.11,Access Control,Session Termination,Terminate user sessions after defined conditions are met,NIST SP 800-171 Rev.2
+AC.L2-3.1.12,Access Control,Remote Access Monitoring,Monitor and control remote access sessions,NIST SP 800-171 Rev.2
+AC.L2-3.1.13,Access Control,Remote Access Encryption,Encrypt remote access sessions for confidentiality,NIST SP 800-171 Rev.2
+AC.L2-3.1.14,Access Control,Remote Access Routing,Route remote access through managed access points,NIST SP 800-171 Rev.2
+AC.L2-3.1.15,Access Control,Privileged Remote Access,Authorize and manage remote access for privileged functions,NIST SP 800-171 Rev.2
+AC.L2-3.1.16,Access Control,Wireless Authorization,Authorize wireless access prior to use,NIST SP 800-171 Rev.2
+AC.L2-3.1.17,Access Control,Wireless Protection,Protect wireless access using authentication and encryption,NIST SP 800-171 Rev.2
+AC.L2-3.1.18,Access Control,Mobile Device Connections,Control connection of mobile devices to systems,NIST SP 800-171 Rev.2
+AC.L2-3.1.19,Access Control,Mobile CUI Protection,Encrypt CUI on mobile devices,NIST SP 800-171 Rev.2
+AC.L2-3.1.20,Access Control,External System Connections,Restrict and monitor connections to external systems,NIST SP 800-171 Rev.2
+AC.L2-3.1.21,Access Control,Portable Storage Use,Limit use of portable storage on external systems,NIST SP 800-171 Rev.2
+AC.L2-3.1.22,Access Control,Public System CUI,Control CUI on publicly accessible systems,NIST SP 800-171 Rev.2
+AT.L2-3.2.1,Awareness & Training,Security Awareness,Ensure personnel are aware of security risks and policies,NIST SP 800-171 Rev.2
+AT.L2-3.2.2,Awareness & Training,Role-Based Training,Train personnel on security duties and responsibilities,NIST SP 800-171 Rev.2
+AT.L2-3.2.3,Awareness & Training,Threat Reporting Training,Train users to recognize and report security events,NIST SP 800-171 Rev.2
+AU.L2-3.3.1,Audit & Accountability,Audit Log Generation,Generate audit logs to record relevant security events,NIST SP 800-171 Rev.2
+AU.L2-3.3.2,Audit & Accountability,User Traceability,Ensure individual user actions can be traced,NIST SP 800-171 Rev.2
+AU.L2-3.3.3,Audit & Accountability,Log Review,Review and update logged events periodically,NIST SP 800-171 Rev.2
+AU.L2-3.3.4,Audit & Accountability,Audit Failure Alerts,Alert on audit logging failures or issues,NIST SP 800-171 Rev.2
+AU.L2-3.3.5,Audit & Accountability,Audit Analysis,Correlate and analyze audits to investigate incidents,NIST SP 800-171 Rev.2
+AU.L2-3.3.6,Audit & Accountability,Log Reduction,Provide filtering and reporting for audit review,NIST SP 800-171 Rev.2
+AU.L2-3.3.7,Audit & Accountability,Time Synchronization,Synchronize system clocks for consistent timestamps,NIST SP 800-171 Rev.2
+AU.L2-3.3.8,Audit & Accountability,Log Protection,Protect audit logs from unauthorized changes or deletion,NIST SP 800-171 Rev.2
+AU.L2-3.3.9,Audit & Accountability,Audit Access Control,Restrict audit log management to authorized personnel,NIST SP 800-171 Rev.2
+CM.L2-3.4.1,Configuration Management,Baseline Configuration,Establish and maintain baseline configurations and inventories,NIST SP 800-171 Rev.2
+CM.L2-3.4.2,Configuration Management,Security Configuration,Enforce secure configuration settings for systems,NIST SP 800-171 Rev.2
+CM.L2-3.4.3,Configuration Management,Change Tracking,Track, review, and approve changes to systems,NIST SP 800-171 Rev.2
+CM.L2-3.4.4,Configuration Management,Impact Analysis,Analyze security impact before implementing changes,NIST SP 800-171 Rev.2
+CM.L2-3.4.5,Configuration Management,Change Access Control,Restrict access to configuration changes,NIST SP 800-171 Rev.2
+CM.L2-3.4.6,Configuration Management,Least Functionality,Configure systems to provide only essential capabilities,NIST SP 800-171 Rev.2
+CM.L2-3.4.7,Configuration Management,Nonessential Features,Disable unnecessary services, ports, and functions,NIST SP 800-171 Rev.2
+CM.L2-3.4.8,Configuration Management,Software Whitelisting,Control software use via allow/deny lists,NIST SP 800-171 Rev.2
+CM.L2-3.4.9,Configuration Management,User-Installed Software,Control and monitor user-installed software,NIST SP 800-171 Rev.2
+IA.L2-3.5.1,Identification & Authentication,User Identification,Identify users, processes, and devices accessing systems,NIST SP 800-171 Rev.2
+IA.L2-3.5.2,Identification & Authentication,User Authentication,Verify identities before granting system access,NIST SP 800-171 Rev.2
+IA.L2-3.5.3,Identification & Authentication,Multi-Factor Authentication,Use MFA for privileged and remote access,NIST SP 800-171 Rev.2
+IA.L2-3.5.4,Identification & Authentication,Replay Resistance,Use replay-resistant authentication for network access,NIST SP 800-171 Rev.2
+IA.L2-3.5.5,Identification & Authentication,Identifier Uniqueness,Prevent reuse of identifiers for a defined time,NIST SP 800-171 Rev.2
+IA.L2-3.5.6,Identification & Authentication,Identifier Inactivity,Disable identifiers after defined inactivity,NIST SP 800-171 Rev.2
+IA.L2-3.5.7,Identification & Authentication,Password Complexity,Enforce strong password complexity requirements,NIST SP 800-171 Rev.2
+IA.L2-3.5.8,Identification & Authentication,Password Reuse,Prevent reuse of recent passwords,NIST SP 800-171 Rev.2
+IA.L2-3.5.9,Identification & Authentication,Temporary Passwords,Require changing one-time or temporary passwords at first use,NIST SP 800-171 Rev.2
+IA.L2-3.5.10,Identification & Authentication,Cryptographic Protection,Protect passwords in storage and transmission,NIST SP 800-171 Rev.2
+IA.L2-3.5.11,Identification & Authentication,Auth Feedback,Obscure authentication feedback to prevent disclosure,NIST SP 800-171 Rev.2
+IR.L2-3.6.1,Incident Response,IR Process,Establish an incident-handling process (prepare, detect, respond, recover),NIST SP 800-171 Rev.2
+IR.L2-3.6.2,Incident Response,Incident Reporting,Track, document, and report incidents to stakeholders,NIST SP 800-171 Rev.2
+IR.L2-3.6.3,Incident Response,IR Testing,Test incident response capabilities periodically,NIST SP 800-171 Rev.2
+MA.L2-3.7.1,Maintenance,System Maintenance,Perform maintenance on organizational systems,NIST SP 800-171 Rev.2
+MA.L2-3.7.2,Maintenance,Controlled Maintenance,Control tools, personnel, and methods used in maintenance,NIST SP 800-171 Rev.2
+MA.L2-3.7.3,Maintenance,CUI Sanitization for Repair,Sanitize CUI before off-site maintenance when required,NIST SP 800-171 Rev.2
+MA.L2-3.7.4,Maintenance,Diagnostic Media Scanning,Scan diagnostic and test media for malware before use,NIST SP 800-171 Rev.2
+MA.L2-3.7.5,Maintenance,Remote Maintenance Security,Protect and monitor remote maintenance; terminate sessions afterward,NIST SP 800-171 Rev.2
+MA.L2-3.7.6,Maintenance,Maintenance Oversight,Supervise maintenance personnel lacking required clearances,NIST SP 800-171 Rev.2
+MP.L2-3.8.1,Media Protection,Media Access,Securely store and control system media containing CUI,NIST SP 800-171 Rev.2
+MP.L2-3.8.2,Media Protection,Media Usage,Limit access to CUI on media to authorized users,NIST SP 800-171 Rev.2
+MP.L2-3.8.3,Media Protection,Media Disposal,Sanitize or destroy CUI media before disposal or reuse,NIST SP 800-171 Rev.2
+MP.L2-3.8.4,Media Protection,Media Marking,Mark media with CUI markings and handling limits,NIST SP 800-171 Rev.2
+MP.L2-3.8.5,Media Protection,Media Transport,Protect and track CUI media during transport,NIST SP 800-171 Rev.2
+MP.L2-3.8.6,Media Protection,Encrypted Transport,Encrypt CUI on digital media during transport when needed,NIST SP 800-171 Rev.2
+MP.L2-3.8.7,Media Protection,Removable Media Use,Control use of removable media on systems,NIST SP 800-171 Rev.2
+MP.L2-3.8.8,Media Protection,Portable Storage Ownership,Prohibit portable storage with no identifiable owner,NIST SP 800-171 Rev.2
+MP.L2-3.8.9,Media Protection,Backup Confidentiality,Protect confidentiality of CUI backups,NIST SP 800-171 Rev.2
+PS.L2-3.9.1,Personnel Security,Screening,Screen individuals before authorizing CUI system access,NIST SP 800-171 Rev.2
+PS.L2-3.9.2,Personnel Security,Termination & Transfer,Protect CUI during and after staff terminations or transfers,NIST SP 800-171 Rev.2
+PE.L2-3.10.1,Physical Protection,Physical Access Control,Limit physical access to systems, equipment, and environments,NIST SP 800-171 Rev.2
+PE.L2-3.10.2,Physical Protection,Facility Monitoring,Monitor and protect physical facilities and support infrastructure,NIST SP 800-171 Rev.2
+PE.L2-3.10.3,Physical Protection,Visitor Escort,Escort visitors and monitor their activity,NIST SP 800-171 Rev.2
+PE.L2-3.10.4,Physical Protection,Physical Access Logging,Maintain logs of physical access events,NIST SP 800-171 Rev.2
+PE.L2-3.10.5,Physical Protection,Access Device Management,Control and manage physical access devices,NIST SP 800-171 Rev.2
+PE.L2-3.10.6,Physical Protection,Alternate Work Sites,Apply safeguards for CUI at alternate work locations,NIST SP 800-171 Rev.2
+RA.L2-3.11.1,Risk Assessment,Risk Assessments,Assess risks to operations, assets, and individuals,NIST SP 800-171 Rev.2
+RA.L2-3.11.2,Risk Assessment,Vulnerability Scans,Scan for vulnerabilities and update scans regularly,NIST SP 800-171 Rev.2
+RA.L2-3.11.3,Risk Assessment,Vulnerability Remediation,Remediate vulnerabilities according to risk,NIST SP 800-171 Rev.2
+CA.L2-3.12.1,Security Assessment,Control Assessments,Assess security controls periodically for effectiveness,NIST SP 800-171 Rev.2
+CA.L2-3.12.2,Security Assessment,POA&M Management,Develop and implement plans of action to address weaknesses,NIST SP 800-171 Rev.2
+CA.L2-3.12.3,Security Assessment,Continuous Monitoring,Monitor security controls on an ongoing basis,NIST SP 800-171 Rev.2
+CA.L2-3.12.4,Security Assessment,System Security Plan,Develop, maintain, and update the system security plan,NIST SP 800-171 Rev.2
+SC.L2-3.13.1,System & Communications Protection,Boundary Defense,Secure and monitor communications at system boundaries,NIST SP 800-171 Rev.2
+SC.L2-3.13.2,System & Communications Protection,Security Architecture,Apply secure design and engineering principles,NIST SP 800-171 Rev.2
+SC.L2-3.13.3,System & Communications Protection,Separate Functions,Separate user functionality from system management,NIST SP 800-171 Rev.2
+SC.L2-3.13.4,System & Communications Protection,Shared Resources,Prevent unintended information transfer via shared resources,NIST SP 800-171 Rev.2
+SC.L2-3.13.5,System & Communications Protection,Public Subnetworks,Isolate publicly accessible components from internal networks,NIST SP 800-171 Rev.2
+SC.L2-3.13.6,System & Communications Protection,Default-Deny Traffic,Block network traffic by default; allow only approved,NIST SP 800-171 Rev.2
+SC.L2-3.13.7,System & Communications Protection,Split Tunneling,Prevent split tunneling for remote devices,NIST SP 800-171 Rev.2
+SC.L2-3.13.8,System & Communications Protection,CUI Encryption in Transit,Encrypt CUI in transit or protect via other safeguards,NIST SP 800-171 Rev.2
+SC.L2-3.13.9,System & Communications Protection,Session Termination,Terminate network connections after sessions or idle periods,NIST SP 800-171 Rev.2
+SC.L2-3.13.10,System & Communications Protection,Crypto Key Management,Manage cryptographic keys used to protect CUI,NIST SP 800-171 Rev.2
+SC.L2-3.13.11,System & Communications Protection,FIPS Cryptography,Use FIPS-validated crypto to protect CUI,NIST SP 800-171 Rev.2
+SC.L2-3.13.12,System & Communications Protection,Collaboration Devices,Disable remote activation and notify users when active,NIST SP 800-171 Rev.2
+SC.L2-3.13.13,System & Communications Protection,Mobile Code,Control and monitor the use of mobile code,NIST SP 800-171 Rev.2
+SC.L2-3.13.14,System & Communications Protection,VoIP Security,Control and monitor use of VoIP technologies,NIST SP 800-171 Rev.2
+SC.L2-3.13.15,System & Communications Protection,Session Authenticity,Protect authenticity of communications sessions,NIST SP 800-171 Rev.2
+SC.L2-3.13.16,System & Communications Protection,CUI at Rest,Protect confidentiality of CUI at rest,NIST SP 800-171 Rev.2
+SI.L2-3.14.1,System & Information Integrity,Flaw Remediation,Identify, report, and correct system flaws promptly,NIST SP 800-171 Rev.2
+SI.L2-3.14.2,System & Information Integrity,Malware Protection,Deploy and manage malicious code protection,NIST SP 800-171 Rev.2
+SI.L2-3.14.3,System & Information Integrity,Security Alerts,Receive and act on security alerts and advisories,NIST SP 800-171 Rev.2
+SI.L2-3.14.4,System & Information Integrity,Malware Updates,Update malware protection when new releases are available,NIST SP 800-171 Rev.2
+SI.L2-3.14.5,System & Information Integrity,System Scanning,Perform system scans and real-time scans of files,NIST SP 800-171 Rev.2
+SI.L2-3.14.6,System & Information Integrity,Monitoring Indicators,Monitor systems and networks for attack indicators,NIST SP 800-171 Rev.2
+SI.L2-3.14.7,System & Information Integrity,Unauthorized Use Detection,Identify and respond to unauthorized system use,NIST SP 800-171 Rev.2
