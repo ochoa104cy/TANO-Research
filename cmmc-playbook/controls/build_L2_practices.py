@@ -1,6 +1,6 @@
 import pandas as pd
 
-# 1. Load the NIST 800-171 Rev.3 spreadsheet
+# 1. Load the NIST 800-171 spreadsheet
 # Make sure this filename matches your local file
 xlsx_path = "C:\\SUNY Canton\\CMMC\\NIST SP 800-171 Rev 2\\sp800-171r2-security-reqs.xlsx"
 df = pd.read_excel(xlsx_path, sheet_name="SP 800-171")
@@ -44,7 +44,7 @@ for _, r in df.iterrows():
 
     practice_name = build_practice_name(requirement_text, max_words=7)
     practice_desc = (
-        f"Implements NIST SP 800-171 Rev.3 control {nist_ref} "
+        f"Implements NIST SP 800-171 control {nist_ref} "
         f"in the {family} family for protecting CUI."
     )
     ao_summary = (
