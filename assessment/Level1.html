@@ -3,180 +3,554 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CMMC Level 1 Assessment — TANO Research</title>
+  <title>CMMC Level 1 Assessment Wizard — TANO Research</title>
   <link rel="stylesheet" href="../styles.css" />
-
   <style>
-    .table-wrapper {
-      max-height: 600px !important;
-      overflow-y: auto;
-      overflow-x: auto;
-      margin-top: 20px;
-      border: 1px solid #333;
-      background: #111;
-      border-radius: 6px;
+    .wizard-steps {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
+    .wizard-step-pill {
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid #444;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+    .wizard-step-pill.active {
+      background: #1f2a3a;
+      border-color: #5aa9ff;
       color: #fff;
-      font-size: 14px;
+      font-weight: 600;
     }
-    th, td {
-      padding: 10px;
-      border: 1px solid #333;
+    .wizard-section {
+      display: none;
+      margin-top: 0.5rem;
     }
-    th {
-      position: sticky;
-      top: 0;
-      background: #222;
-      z-index: 5;
+    .wizard-section.active {
+      display: block;
     }
-    .search-box {
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .form-field label {
+      font-size: 0.9rem;
+      color: #ccc;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
       width: 100%;
-      padding: 10px;
-      margin-top: 10px;
+      padding: 6px 8px;
       border-radius: 6px;
       border: 1px solid #444;
       background: #111;
       color: #fff;
-      font-size: 16px;
+      font-size: 0.9rem;
     }
-    select, textarea {
-      width: 100%;
-      background: #111;
-      border: 1px solid #444;
-      color: #fff;
-      border-radius: 6px;
-      padding: 5px;
-    }
-    textarea {
-      height: 70px;
+    .form-field textarea {
       resize: vertical;
+      min-height: 80px;
+    }
+    .scope-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .scope-tags label {
+      font-size: 0.85rem;
+    }
+    .control-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      max-height: 480px;
+      overflow-y: auto;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 0.75rem;
+      background: #0d0d0d;
+    }
+    .control-card {
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      background: #111;
+    }
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      align-items: baseline;
+    }
+    .control-id {
+      font-weight: 600;
+    }
+    .control-domain {
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+    .control-name {
+      margin-top: 0.15rem;
+      font-size: 0.95rem;
+    }
+    .control-desc {
+      margin-top: 0.25rem;
+      font-size: 0.85rem;
+      color: #ccc;
+    }
+    .control-actions {
+      display: grid;
+      grid-template-columns: minmax(140px, 190px) 1fr;
+      gap: 0.5rem 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .status-select {
+      width: 100%;
+      padding: 4px 6px;
+      border-radius: 6px;
+      border: 1px solid #555;
+      background: #151515;
+      color: #fff;
+      font-size: 0.85rem;
+    }
+    .wizard-nav {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .summary-card {
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 0.75rem;
+      background: #111;
+    }
+    .summary-card h3 {
+      margin: 0 0 0.3rem 0;
+      font-size: 1rem;
+    }
+    .summary-list {
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    .summary-list li {
+      margin-bottom: 0.25rem;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0 0.4rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      border: 1px solid #555;
+      color: #ccc;
     }
   </style>
 </head>
-
 <body>
-
 <div style="margin:1rem 0;">
   <a href="index.html" class="btn-primary">← Assessment Home</a>
-  |
+  &nbsp;|&nbsp;
   <a href="../cmmc.html" class="btn-primary">← CMMC Center</a>
-  |
+  &nbsp;|&nbsp;
   <a href="../index.html" class="btn-primary">← TANO Home</a>
 </div>
-
 <div class="card">
-  <h1>CMMC Level 1 Assessment</h1>
-  <p><strong>Assess all 15 FAR 52.204-21 controls.</strong>  
-     Your progress is auto-saved in your browser.</p>
-
-  <input id="searchInput" class="search-box" placeholder="Search Level 1 practices…"/>
-
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>Practice ID</th>
-          <th>Domain</th>
-          <th>Practice Name</th>
-          <th>Description</th>
-          <th>Status</th>
-          <th>Notes</th>
-        </tr>
-      </thead>
-      <tbody id="tableBody"></tbody>
-    </table>
+  <h1>CMMC Level 1 Assessment Wizard</h1>
+  <p>
+    Guided workflow for the 15 FAR 52.204-21 foundational practices.
+    Progress is saved locally in your browser (<code>tano_L1_meta</code> and
+    <code>tano_L1_assessment</code>).
+  </p>
+<!-- Step pills -->
+  <div class="wizard-steps">
+    <div class="wizard-step-pill" data-step-pill="1">Step 1 — Organization Profile</div>
+    <div class="wizard-step-pill" data-step-pill="2">Step 2 — Scope & Boundaries</div>
+    <div class="wizard-step-pill" data-step-pill="3">Step 3 — Practice Assessment</div>
+    <div class="wizard-step-pill" data-step-pill="4">Step 4 — Summary & Export</div>
+  </div>
+<!-- STEP 1 -->
+  <section class="wizard-section" data-step="1">
+    <h2>Step 1 — Organization Profile</h2>
+    <p>Capture high-level information about the organization and assessor.</p>
+<div class="field-grid">
+      <div class="form-field">
+        <label for="orgName">Organization Name</label>
+        <input id="orgName" type="text" />
+      </div>
+      <div class="form-field">
+        <label for="assessorName">Assessor Name</label>
+        <input id="assessorName" type="text" />
+      </div>
+      <div class="form-field">
+        <label for="assessmentDate">Assessment Date</label>
+        <input id="assessmentDate" type="date" />
+      </div>
+      <div class="form-field">
+        <label for="environment">Primary Environment</label>
+        <select id="environment">
+          <option value="">Select…</option>
+          <option>On-Premises</option>
+          <option>Cloud-Hosted</option>
+          <option>Hybrid</option>
+          <option>Remote / Distributed</option>
+        </select>
+      </div>
+    </div>
+  </section>
+<!-- STEP 2 -->
+  <section class="wizard-section" data-step="2">
+    <h2>Step 2 — Scope & Boundaries</h2>
+    <p>Select what is in scope for Level 1 and describe the system boundary.</p>
+<div class="form-field">
+      <label>In-Scope Areas</label>
+      <div class="scope-tags">
+        <label><input type="checkbox" class="scope-checkbox" value="Office network" /> Office network</label>
+        <label><input type="checkbox" class="scope-checkbox" value="Remote workers" /> Remote workers</label>
+        <label><input type="checkbox" class="scope-checkbox" value="Cloud services" /> Cloud services</label>
+        <label><input type="checkbox" class="scope-checkbox" value="On-prem servers" /> On-prem servers</label>
+        <label><input type="checkbox" class="scope-checkbox" value="Laptops / endpoints" /> Laptops / endpoints</label>
+      </div>
+    </div>
+<div class="form-field" style="margin-top:1rem;">
+      <label for="boundary">System Boundary Description</label>
+      <textarea id="boundary" placeholder="Describe what is in scope for CMMC Level 1 (networks, locations, systems, users)…"></textarea>
+    </div>
+  </section>
+<!-- STEP 3 -->
+  <section class="wizard-section" data-step="3">
+    <h2>Step 3 — Practice Assessment (15 Controls)</h2>
+    <p>
+      For each practice, choose a status and optionally capture notes or evidence.
+      Use the scroll area below to review all 15 Level 1 practices.
+    </p>
+<div class="form-field">
+      <label for="searchControls">Filter Practices</label>
+      <input id="searchControls" type="text" placeholder="Search by ID, domain, or keyword…" />
+    </div>
+<div id="controlsContainer" class="control-grid">
+      <!-- Practice cards injected here -->
+    </div>
+  </section>
+<!-- STEP 4 -->
+  <section class="wizard-section" data-step="4">
+    <h2>Step 4 — Summary & Export</h2>
+    <p>Review overall completion and gap list. You can download a quick summary file.</p>
+<div id="summaryStats" class="summary-grid"></div>
+<div class="summary-card" style="margin-top:1rem;">
+      <h3>Gap List (Not Implemented / Partial / Not Assessed)</h3>
+      <ul id="gapList" class="summary-list"></ul>
+    </div>
+<button class="btn-primary" type="button" onclick="downloadSummary()">
+      Download Level 1 Summary (.txt)
+    </button>
+  </section>
+<!-- NAV BUTTONS -->
+  <div class="wizard-nav">
+    <button class="btn-secondary" type="button" id="prevBtn">← Previous</button>
+    <button class="btn-primary" type="button" id="nextBtn">Next →</button>
   </div>
 </div>
-
 <footer>© TANO Research — Exploring Possibilities with Integrity Everywhere</footer>
-
 <script>
-const CSV_URL = "https://ochoa104cy.github.io/TANO-Research/cmmc-playbook/controls/L1_Practices.csv";
-let assessment = JSON.parse(localStorage.getItem("tano_L1_assessment") || "{}");
-
-function save() {
-  localStorage.setItem("tano_L1_assessment", JSON.stringify(assessment));
-}
-
-function parseCSV(text) {
-  return text.split(/\r?\n/).filter(x => x.trim() !== "").map(row => {
-    const parts = row.split(",");
-    return parts.map(p => p.replace(/^"|"$/g, ""));
-  });
-}
-
-function buildTable(rows) {
-  const header = rows[0];
-  const idx = {
-    id: header.indexOf("Practice ID"),
-    domain: header.indexOf("Domain"),
-    name: header.indexOf("Practice Name"),
-    desc: header.indexOf("Description")
-  };
-  
-  const body = document.getElementById("tableBody");
-
-  for (let i = 1; i < rows.length; i++) {
-    const r = rows[i];
-    let pid = r[idx.id];
-    if (!pid) continue;
-
-    if (!assessment[pid]) {
-      assessment[pid] = { status: "", notes: "" };
-    }
-
-    const tr = document.createElement("tr");
-
-    tr.innerHTML = `
-      <td>${pid}</td>
-      <td>${r[idx.domain]}</td>
-      <td>${r[idx.name]}</td>
-      <td>${r[idx.desc]}</td>
-      <td>
-        <select onchange="updateStatus('${pid}', this.value)">
-          <option value="">—</option>
-          <option value="Implemented" ${assessment[pid].status === "Implemented" ? "selected" : ""}>Implemented</option>
-          <option value="Not Implemented" ${assessment[pid].status === "Not Implemented" ? "selected" : ""}>Not Implemented</option>
-          <option value="N/A" ${assessment[pid].status === "N/A" ? "selected" : ""}>N/A</option>
-        </select>
-      </td>
-      <td>
-        <textarea oninput="updateNotes('${pid}', this.value)">${assessment[pid].notes || ""}</textarea>
-      </td>
-    `;
-
-    body.appendChild(tr);
+const L1_CSV =
+  "https://ochoa104cy.github.io/TANO-Research/cmmc-playbook/controls/L1_Practices.csv";
+const META_KEY = "tano_L1_meta";
+const ASSESS_KEY = "tano_L1_assessment";
+let currentStep = 1;
+const maxStep = 4;
+let meta = { };
+let assessment = { }; // { practiceId: {status, notes} }
+let allControls = []; // for search
+function loadJSON(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return fallback;
+    return JSON.parse(raw);
+  } catch (e) {
+    return fallback;
   }
-
-  save();
 }
-
-function updateStatus(id, value) {
-  assessment[id].status = value;
-  save();
+function saveJSON(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
 }
-
-function updateNotes(id, value) {
-  assessment[id].notes = value;
-  save();
+/* ----- Wizard Navigation ----- */
+function showStep(step) {
+  currentStep = step;
+  document.querySelectorAll(".wizard-section").forEach(sec => {
+    const s = Number(sec.dataset.step);
+    sec.classList.toggle("active", s === step);
+  });
+  document.querySelectorAll(".wizard-step-pill").forEach(pill => {
+    const s = Number(pill.dataset.stepPill);
+    pill.classList.toggle("active", s === step);
+  });
+const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+prevBtn.disabled = step === 1;
+  nextBtn.textContent = (step === maxStep) ? "Finish" : "Next →";
 }
-
-function searchFilter() {
-  let q = document.getElementById("searchInput").value.toLowerCase();
-  document.querySelectorAll("#tableBody tr").forEach(row => {
-    row.style.display = row.textContent.toLowerCase().includes(q) ? "" : "none";
+function nextStep() {
+  if (currentStep < maxStep) {
+    showStep(currentStep + 1);
+    if (currentStep === maxStep) buildSummary();
+  } else {
+    buildSummary();
+    alert("Level 1 assessment saved locally. You can also view stats on the Assessment Dashboard.");
+  }
+}
+function prevStep() {
+  if (currentStep > 1) showStep(currentStep - 1);
+}
+/* ----- CSV Parsing & Controls Build ----- */
+function parseCSV(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim() !== "");
+  const rows = [];
+  for (const line of lines) {
+    const cells = [];
+    let cur = "";
+    let inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') {
+        if (inQ && line[i+1] === '"') { cur += '"'; i++; }
+        else inQ = !inQ;
+      } else if (ch === "," && !inQ) {
+        cells.push(cur);
+        cur = "";
+      } else {
+        cur += ch;
+      }
+    }
+    cells.push(cur);
+    rows.push(cells.map(v => v.replace(/^"|"$/g, "")));
+  }
+  return rows;
+}
+function buildControls(rows) {
+  const header = rows[0];
+  const idxId   = header.indexOf("Practice ID");
+  const idxDom  = header.indexOf("Domain");
+  const idxName = header.indexOf("Practice Name");
+  const idxDesc = header.indexOf("Description");
+const container = document.getElementById("controlsContainer");
+  container.innerHTML = "";
+  allControls = [];
+for (let i = 1; i < rows.length; i++) {
+    const r = rows[i];
+    const id = r[idxId];
+    if (!id) continue;
+    const domain = r[idxDom] || "";
+    const name = r[idxName] || "";
+    const desc = r[idxDesc] || "";
+if (!assessment[id]) assessment[id] = { status: "", notes: "" };
+const card = document.createElement("div");
+    card.className = "control-card";
+    card.dataset.practiceId = id;
+    card.innerHTML = `
+      <div class="control-header">
+        <div>
+          <div class="control-id">${id}</div>
+          <div class="control-domain">${domain}</div>
+          <div class="control-name">${name}</div>
+        </div>
+      </div>
+      <div class="control-desc">${desc}</div>
+      <div class="control-actions">
+        <div>
+          <label style="font-size:0.8rem;">Status</label>
+          <select class="status-select">
+            <option value="">— Select —</option>
+            <option value="Implemented">Implemented</option>
+            <option value="Partially Implemented">Partially Implemented</option>
+            <option value="Not Implemented">Not Implemented</option>
+            <option value="N/A">Not Applicable</option>
+            <option value="Out of Scope">Out of Scope</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:0.8rem;">Notes / Evidence</label>
+          <textarea>${assessment[id].notes || ""}</textarea>
+        </div>
+      </div>
+    `;
+const select = card.querySelector("select");
+    select.value = assessment[id].status || "";
+    select.addEventListener("change", () => {
+      assessment[id].status = select.value;
+      saveJSON(ASSESS_KEY, assessment);
+    });
+const notesArea = card.querySelector("textarea");
+    notesArea.addEventListener("input", () => {
+      assessment[id].notes = notesArea.value;
+      saveJSON(ASSESS_KEY, assessment);
+    });
+container.appendChild(card);
+    allControls.push({ id, domain, name, desc, element: card });
+  }
+saveJSON(ASSESS_KEY, assessment);
+}
+/* ----- Search Filter ----- */
+function setupSearch() {
+  const input = document.getElementById("searchControls");
+  input.addEventListener("input", () => {
+    const q = input.value.toLowerCase();
+    allControls.forEach(c => {
+      const text = (c.id + " " + c.domain + " " + c.name + " " + c.desc).toLowerCase();
+      c.element.style.display = text.includes(q) ? "" : "none";
+    });
   });
 }
-
-document.getElementById("searchInput").addEventListener("keyup", searchFilter);
-
-fetch(CSV_URL)
+/* ----- Meta handling ----- */
+function loadMetaIntoForm() {
+  document.getElementById("orgName").value = meta.orgName || "";
+  document.getElementById("assessorName").value = meta.assessorName || "";
+  document.getElementById("assessmentDate").value = meta.assessmentDate || "";
+  document.getElementById("environment").value = meta.environment || "";
+const scopes = new Set(meta.scopes || []);
+  document.querySelectorAll(".scope-checkbox").forEach(cb => {
+    cb.checked = scopes.has(cb.value);
+  });
+document.getElementById("boundary").value = meta.boundary || "";
+}
+function setupMetaListeners() {
+  function sync() {
+    meta.orgName = document.getElementById("orgName").value;
+    meta.assessorName = document.getElementById("assessorName").value;
+    meta.assessmentDate = document.getElementById("assessmentDate").value;
+    meta.environment = document.getElementById("environment").value;
+    meta.boundary = document.getElementById("boundary").value;
+const scopes = [];
+    document.querySelectorAll(".scope-checkbox:checked").forEach(cb => scopes.push(cb.value));
+    meta.scopes = scopes;
+saveJSON(META_KEY, meta);
+  }
+["orgName","assessorName","assessmentDate","environment","boundary"]
+    .forEach(id => {
+      document.getElementById(id).addEventListener("input", sync);
+      document.getElementById(id).addEventListener("change", sync);
+    });
+document.querySelectorAll(".scope-checkbox").forEach(cb => {
+    cb.addEventListener("change", sync);
+  });
+}
+/* ----- Summary ----- */
+function buildSummary() {
+  const stats = { total: 0, impl: 0, partial: 0, notImpl: 0, na: 0, outScope: 0, none: 0 };
+  Object.entries(assessment).forEach(([id, v]) => {
+    if (!id) return;
+    stats.total++;
+    switch (v.status) {
+      case "Implemented": stats.impl++; break;
+      case "Partially Implemented": stats.partial++; break;
+      case "Not Implemented": stats.notImpl++; break;
+      case "N/A": stats.na++; break;
+      case "Out of Scope": stats.outScope++; break;
+      default: stats.none++; break;
+    }
+  });
+const pctImpl = stats.total ? Math.round(stats.impl / stats.total * 100) : 0;
+const summaryDiv = document.getElementById("summaryStats");
+  summaryDiv.innerHTML = `
+    <div class="summary-card">
+      <h3>Overall Completion</h3>
+      <p><strong>${stats.impl}/${stats.total}</strong> controls implemented (${pctImpl}%).</p>
+      <p>${stats.partial} partial, ${stats.notImpl} not implemented, ${stats.na} N/A, ${stats.outScope} out of scope.</p>
+    </div>
+    <div class="summary-card">
+      <h3>Organization Snapshot</h3>
+      <p><strong>Org:</strong> ${meta.orgName || "—"}</p>
+      <p><strong>Assessor:</strong> ${meta.assessorName || "—"}</p>
+      <p><strong>Date:</strong> ${meta.assessmentDate || "—"}</p>
+      <p><strong>Environment:</strong> ${meta.environment || "—"}</p>
+    </div>
+    <div class="summary-card">
+      <h3>Scope</h3>
+      <p><strong>In scope:</strong> ${(meta.scopes || []).join(", ") || "—"}</p>
+      <p style="margin-top:0.25rem;"><strong>Boundary:</strong><br>${meta.boundary || "—"}</p>
+    </div>
+  `;
+// Gap list
+  const gapList = document.getElementById("gapList");
+  gapList.innerHTML = "";
+  const gaps = allControls.filter(c => {
+    const st = (assessment[c.id] || {}).status || "";
+    return st === "" || st === "Partially Implemented" || st === "Not Implemented";
+  });
+gaps.forEach(c => {
+    const st = (assessment[c.id] || {}).status || "Not Assessed";
+    const li = document.createElement("li");
+    li.innerHTML = `<span class="badge">${c.id}</span> ${c.name} — <em>${st}</em>`;
+    gapList.appendChild(li);
+  });
+}
+function downloadSummary() {
+  buildSummary();
+  let lines = [];
+  lines.push("TANO Research — CMMC Level 1 Summary");
+  lines.push("====================================");
+  lines.push("");
+  lines.push(`Organization: ${meta.orgName || ""}`);
+  lines.push(`Assessor:    ${meta.assessorName || ""}`);
+  lines.push(`Date:        ${meta.assessmentDate || ""}`);
+  lines.push(`Environment: ${meta.environment || ""}`);
+  lines.push("");
+  lines.push("Scope:");
+  lines.push(`  In scope: ${(meta.scopes || []).join(", ") || "None listed"}`);
+  lines.push(`  Boundary: ${meta.boundary || ""}`);
+  lines.push("");
+  lines.push("Control statuses:");
+  Object.entries(assessment).forEach(([id, v]) => {
+    lines.push(`  ${id}: ${v.status || "Not Assessed"}  | Notes: ${v.notes || ""}`);
+  });
+const blob = new Blob([lines.join("\n")], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "TANO_CMMC_Level1_Summary.txt";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+/* ----- Init ----- */
+document.getElementById("prevBtn").addEventListener("click", prevStep);
+document.getElementById("nextBtn").addEventListener("click", () => {
+  if (currentStep === maxStep) buildSummary();
+  nextStep();
+});
+meta = loadJSON(META_KEY, {});
+assessment = loadJSON(ASSESS_KEY, {});
+loadMetaIntoForm();
+setupMetaListeners();
+setupSearch();
+fetch(L1_CSV)
   .then(r => r.text())
-  .then(t => buildTable(parseCSV(t)));
+  .then(t => {
+    const rows = parseCSV(t);
+    buildControls(rows);
+    showStep(1);
+  })
+  .catch(err => {
+    console.error("Error loading L1 CSV", err);
+    alert("Unable to load Level 1 practices CSV.");
+    showStep(1);
+  });
 </script>
-
 </body>
 </html>
